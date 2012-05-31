@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'SFTabView' target in the 'SFTabView' project
+// Prefix header for all source files of the 'SFTabView' target in the 'SFTabView' project.
 //
 
 #ifdef __OBJC__

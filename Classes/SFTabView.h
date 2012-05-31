@@ -4,11 +4,12 @@
 //
 //  Created by Matteo Rattotti on 2/27/10.
 //  Copyright 2010 www.shinyfrog.net. All rights reserved.
+//  Copyright 2012 Dillon Aumiller. All rights reserved.
 //
-
+//==================================================================================================================================
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
-
+//==================================================================================================================================
 @protocol SFTabViewDelegate;
 
 /**
@@ -23,25 +24,29 @@
   
 */
 
-@interface SFTabView : NSView {
-    IBOutlet NSObject  <SFTabViewDelegate> *delegate;
+@interface SFTabView : NSView
+{
+  IBOutlet NSObject  <SFTabViewDelegate> *delegate;
 
-    CALayer *currentClickedTab;
-    CALayer *currentSelectedTab;
+  CALayer *currentClickedTab;
+  CALayer *currentSelectedTab;
 
-    CALayer *tabsLayer;
-    CAScrollLayer *scrollLayer;
-    
-    NSMutableArray *arrangedTabs;
-    NSPoint mouseDownPoint, mouseDownStartingPoint;
-    
-    NSString *defaultTabClassName;
-    
-    BOOL canDragTab;
-    
-    int tabOffset;
-    int startingOffset;
-    int tabMagneticForce;
+  CALayer *tabsLayer;
+  CAScrollLayer *scrollLayer;
+
+  NSMutableArray *arrangedTabs;
+  NSPoint mouseDownPoint, mouseDownStartingPoint;
+
+  NSString *defaultTabClassName;
+
+  BOOL canDragTab;
+
+  int tabOffset;
+  int startingOffset;
+  int tabMagneticForce;
+  
+  BOOL tabAutoSize;
+  CGFloat tabWidth, tabMinWidth, tabMaxWidth;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -92,6 +97,35 @@
  every drag tentative.
  */
 @property int tabMagneticForce;
+
+/**
+ @brief Determines if tabs will grow/shrink as needed.
+ 
+ When YES, tabs will attempt to fit name labels' text.
+ */
+@property BOOL tabAutoSize;
+
+/**
+ @brief Size of fixed-width tabs.
+ 
+ Only used when (tabAutoSize == NO).
+ Note this currently has a hard-coded minimum value of 60.0.
+ */
+@property CGFloat tabWidth;
+
+/**
+ @brief Minimum width of tabs.
+ 
+ Note this currently has a hard-coded minimum value of 60.0.
+ */
+@property CGFloat tabMinWidth;
+
+/**
+ @brief Maximum width of tabs.
+ 
+ Note this currently has a card-coded minimum value of 60.0
+ */
+@property CGFloat tabMaxWidth;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @name Adding and Removing Tabs

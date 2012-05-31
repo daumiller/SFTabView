@@ -7,265 +7,379 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C5CBCF611BD52BA00448ADD /* SFDefaultTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5CBCF111BD52BA00448ADD /* SFDefaultTab.m */; };
-		0C5CBCF711BD52BA00448ADD /* SFTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5CBCF311BD52BA00448ADD /* SFTabView.m */; };
-		0C5CBCF811BD52BA00448ADD /* SFTabViewAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5CBCF511BD52BA00448ADD /* SFTabViewAppDelegate.m */; };
-		0C5CBCFF11BD534200448ADD /* activeTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C5CBCFB11BD534200448ADD /* activeTab.png */; };
-		0C5CBD0011BD534200448ADD /* inactiveTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C5CBCFC11BD534200448ADD /* inactiveTab.png */; };
-		0C5CBD0111BD534200448ADD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C5CBCFD11BD534200448ADD /* MainMenu.xib */; };
-		0C5CBD0211BD534200448ADD /* tabBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C5CBCFE11BD534200448ADD /* tabBg.png */; };
-		0C5CBD1311BD537700448ADD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0C5CBD1111BD537700448ADD /* InfoPlist.strings */; };
-		0CB2673E11984E3100003C49 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CB2673D11984E3100003C49 /* QuartzCore.framework */; };
-		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
-		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		514669B91577BE2E007F7018 /* SFTabView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* SFTabView.framework */; };
+		514669FE1577C151007F7018 /* tabBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 515318C81577B21000D37476 /* tabBg.png */; };
+		51466A3E1577CAE6007F7018 /* activeBody.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A3B1577CAE6007F7018 /* activeBody.png */; };
+		51466A3F1577CAE6007F7018 /* activeLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A3C1577CAE6007F7018 /* activeLeft.png */; };
+		51466A401577CAE6007F7018 /* activeRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A3D1577CAE6007F7018 /* activeRight.png */; };
+		51466A441577CAF2007F7018 /* inactiveBody.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A411577CAF2007F7018 /* inactiveBody.png */; };
+		51466A451577CAF2007F7018 /* inactiveLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A421577CAF2007F7018 /* inactiveLeft.png */; };
+		51466A461577CAF2007F7018 /* inactiveRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A431577CAF2007F7018 /* inactiveRight.png */; };
+		515318C01577B1E400D37476 /* SFDefaultTab.h in Headers */ = {isa = PBXBuildFile; fileRef = 515318BC1577B1E400D37476 /* SFDefaultTab.h */; };
+		515318C11577B1E400D37476 /* SFDefaultTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 515318BD1577B1E400D37476 /* SFDefaultTab.m */; };
+		515318C21577B1E400D37476 /* SFTabView.h in Headers */ = {isa = PBXBuildFile; fileRef = 515318BE1577B1E400D37476 /* SFTabView.h */; };
+		515318C31577B1E400D37476 /* SFTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 515318BF1577B1E400D37476 /* SFTabView.m */; };
+		515319471577B7D700D37476 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515319461577B7D700D37476 /* QuartzCore.framework */; };
+		515319831577B93800D37476 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515319821577B93800D37476 /* Cocoa.framework */; };
+		515319911577B9ED00D37476 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5153198F1577B9ED00D37476 /* MainMenu.xib */; };
+		515319961577BA1E00D37476 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 515319931577BA1E00D37476 /* main.m */; };
+		515319971577BA1E00D37476 /* SFTabViewTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 515319951577BA1E00D37476 /* SFTabViewTestAppDelegate.m */; };
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5153197F1577B92800D37476 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = SFTabView;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		0C5CBCF011BD52BA00448ADD /* SFDefaultTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFDefaultTab.h; path = Classes/SFDefaultTab.h; sourceTree = "<group>"; };
-		0C5CBCF111BD52BA00448ADD /* SFDefaultTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFDefaultTab.m; path = Classes/SFDefaultTab.m; sourceTree = "<group>"; };
-		0C5CBCF211BD52BA00448ADD /* SFTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFTabView.h; path = Classes/SFTabView.h; sourceTree = "<group>"; };
-		0C5CBCF311BD52BA00448ADD /* SFTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFTabView.m; path = Classes/SFTabView.m; sourceTree = "<group>"; };
-		0C5CBCF411BD52BA00448ADD /* SFTabViewAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFTabViewAppDelegate.h; path = Classes/SFTabViewAppDelegate.h; sourceTree = "<group>"; };
-		0C5CBCF511BD52BA00448ADD /* SFTabViewAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFTabViewAppDelegate.m; path = Classes/SFTabViewAppDelegate.m; sourceTree = "<group>"; };
-		0C5CBCFB11BD534200448ADD /* activeTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activeTab.png; path = Resources/activeTab.png; sourceTree = "<group>"; };
-		0C5CBCFC11BD534200448ADD /* inactiveTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = inactiveTab.png; path = Resources/inactiveTab.png; sourceTree = "<group>"; };
-		0C5CBCFD11BD534200448ADD /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainMenu.xib; path = Resources/MainMenu.xib; sourceTree = "<group>"; };
-		0C5CBCFE11BD534200448ADD /* tabBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabBg.png; path = Resources/tabBg.png; sourceTree = "<group>"; };
-		0C5CBD1211BD537700448ADD /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0CB2673D11984E3100003C49 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		256AC3F00F4B6AF500CF3369 /* SFTabView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTabView_Prefix.pch; sourceTree = "<group>"; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		8D1107310486CEB800E47090 /* SFTabView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SFTabView-Info.plist"; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* SFTabView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFTabView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCF5E0370ADEE00C91783 /* SFTabView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTabView_Prefix.pch; sourceTree = "<group>"; };
+		51466A3B1577CAE6007F7018 /* activeBody.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activeBody.png; path = Resources/activeBody.png; sourceTree = "<group>"; };
+		51466A3C1577CAE6007F7018 /* activeLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activeLeft.png; path = Resources/activeLeft.png; sourceTree = "<group>"; };
+		51466A3D1577CAE6007F7018 /* activeRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = activeRight.png; path = Resources/activeRight.png; sourceTree = "<group>"; };
+		51466A411577CAF2007F7018 /* inactiveBody.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = inactiveBody.png; path = Resources/inactiveBody.png; sourceTree = "<group>"; };
+		51466A421577CAF2007F7018 /* inactiveLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = inactiveLeft.png; path = Resources/inactiveLeft.png; sourceTree = "<group>"; };
+		51466A431577CAF2007F7018 /* inactiveRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = inactiveRight.png; path = Resources/inactiveRight.png; sourceTree = "<group>"; };
+		515318BC1577B1E400D37476 /* SFDefaultTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFDefaultTab.h; path = Classes/SFDefaultTab.h; sourceTree = "<group>"; };
+		515318BD1577B1E400D37476 /* SFDefaultTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFDefaultTab.m; path = Classes/SFDefaultTab.m; sourceTree = "<group>"; };
+		515318BE1577B1E400D37476 /* SFTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFTabView.h; path = Classes/SFTabView.h; sourceTree = "<group>"; };
+		515318BF1577B1E400D37476 /* SFTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFTabView.m; path = Classes/SFTabView.m; sourceTree = "<group>"; };
+		515318C81577B21000D37476 /* tabBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabBg.png; path = Resources/tabBg.png; sourceTree = "<group>"; };
+		515319461577B7D700D37476 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		515319621577B86E00D37476 /* SFTabViewTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SFTabViewTest-Info.plist"; sourceTree = "<group>"; };
+		5153197B1577B91F00D37476 /* SFTabViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFTabViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		515319821577B93800D37476 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		515319901577B9ED00D37476 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		515319931577BA1E00D37476 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		515319941577BA1E00D37476 /* SFTabViewTestAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTabViewTestAppDelegate.h; sourceTree = "<group>"; };
+		515319951577BA1E00D37476 /* SFTabViewTestAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTabViewTestAppDelegate.m; sourceTree = "<group>"; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* SFTabView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SFTabView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8D11072E0486CEB800E47090 /* Frameworks */ = {
+		515319791577B91F00D37476 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				0CB2673E11984E3100003C49 /* QuartzCore.framework in Frameworks */,
+				515319831577B93800D37476 /* Cocoa.framework in Frameworks */,
+				514669B91577BE2E007F7018 /* SFTabView.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+				515319471577B7D700D37476 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Classes */ = {
+		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0C5CBD1711BD545E00448ADD /* SFTabView */,
-				0C5CBCF411BD52BA00448ADD /* SFTabViewAppDelegate.h */,
-				0C5CBCF511BD52BA00448ADD /* SFTabViewAppDelegate.m */,
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
-		0C5CBD1711BD545E00448ADD /* SFTabView */ = {
-			isa = PBXGroup;
-			children = (
-				0C5CBCF011BD52BA00448ADD /* SFDefaultTab.h */,
-				0C5CBCF111BD52BA00448ADD /* SFDefaultTab.m */,
-				0C5CBCF211BD52BA00448ADD /* SFTabView.h */,
-				0C5CBCF311BD52BA00448ADD /* SFTabView.m */,
-			);
-			name = SFTabView;
-			sourceTree = "<group>";
-		};
-		0CB2672111984D2800003C49 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				0C5CBCFB11BD534200448ADD /* activeTab.png */,
-				0C5CBCFC11BD534200448ADD /* inactiveTab.png */,
-				0C5CBCFE11BD534200448ADD /* tabBg.png */,
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
-		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0CB2673D11984E3100003C49 /* QuartzCore.framework */,
-				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
-				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
-				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		19C28FACFE9D520D11CA2CBB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8D1107320486CEB800E47090 /* SFTabView.app */,
+				8DC2EF5B0486A6940098B216 /* SFTabView.framework */,
+				5153197B1577B91F00D37476 /* SFTabViewTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* SFTabView */ = {
+		0867D691FE84028FC02AAC07 /* SFTabView */ = {
 			isa = PBXGroup;
 			children = (
-				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
-				29B97323FDCFA39411CA2CEA /* Frameworks */,
-				19C28FACFE9D520D11CA2CBB /* Products */,
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+				515319621577B86E00D37476 /* SFTabViewTest-Info.plist */,
+				515319821577B93800D37476 /* Cocoa.framework */,
 			);
 			name = SFTabView;
 			sourceTree = "<group>";
 		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				256AC3F00F4B6AF500CF3369 /* SFTabView_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
 			);
-			name = "Other Sources";
+			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
 		};
-		29B97317FDCFA39411CA2CEA /* Resources */ = {
+		089C1665FE841158C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0C5CBCFD11BD534200448ADD /* MainMenu.xib */,
-				0CB2672111984D2800003C49 /* Images */,
-				8D1107310486CEB800E47090 /* SFTabView-Info.plist */,
-				0C5CBD1111BD537700448ADD /* InfoPlist.strings */,
+				51466A411577CAF2007F7018 /* inactiveBody.png */,
+				51466A421577CAF2007F7018 /* inactiveLeft.png */,
+				51466A431577CAF2007F7018 /* inactiveRight.png */,
+				51466A3B1577CAE6007F7018 /* activeBody.png */,
+				51466A3C1577CAE6007F7018 /* activeLeft.png */,
+				51466A3D1577CAE6007F7018 /* activeRight.png */,
+				5153198F1577B9ED00D37476 /* MainMenu.xib */,
+				515318C81577B21000D37476 /* tabBg.png */,
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
-				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				515318BC1577B1E400D37476 /* SFDefaultTab.h */,
+				515318BD1577B1E400D37476 /* SFDefaultTab.m */,
+				515318BE1577B1E400D37476 /* SFTabView.h */,
+				515318BF1577B1E400D37476 /* SFTabView.m */,
+				515319921577BA1E00D37476 /* Test */,
 			);
-			name = Frameworks;
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+				515319461577B7D700D37476 /* QuartzCore.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF5E0370ADEE00C91783 /* SFTabView_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		515319921577BA1E00D37476 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				515319931577BA1E00D37476 /* main.m */,
+				515319941577BA1E00D37476 /* SFTabViewTestAppDelegate.h */,
+				515319951577BA1E00D37476 /* SFTabViewTestAppDelegate.m */,
+			);
+			name = Test;
+			path = Classes/Test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				515318C01577B1E400D37476 /* SFDefaultTab.h in Headers */,
+				515318C21577B1E400D37476 /* SFTabView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* SFTabView */ = {
+		5153197A1577B91F00D37476 /* SFTabViewTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "SFTabView" */;
+			buildConfigurationList = 515319861577B93800D37476 /* Build configuration list for PBXNativeTarget "SFTabViewTest" */;
 			buildPhases = (
-				8D1107290486CEB800E47090 /* Resources */,
-				8D11072C0486CEB800E47090 /* Sources */,
-				8D11072E0486CEB800E47090 /* Frameworks */,
+				515319771577B91F00D37476 /* Resources */,
+				515319781577B91F00D37476 /* Sources */,
+				515319791577B91F00D37476 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				515319801577B92800D37476 /* PBXTargetDependency */,
+			);
+			name = SFTabViewTest;
+			productName = SFTabViewTest;
+			productReference = 5153197B1577B91F00D37476 /* SFTabViewTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8DC2EF4F0486A6940098B216 /* SFTabView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "SFTabView" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SFTabView;
-			productInstallPath = "$(HOME)/Applications";
+			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = SFTabView;
-			productReference = 8D1107320486CEB800E47090 /* SFTabView.app */;
-			productType = "com.apple.product-type.application";
+			productReference = 8DC2EF5B0486A6940098B216 /* SFTabView.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		29B97313FDCFA39411CA2CEA /* Project object */ = {
+		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SFTabView" */;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "SFTabView" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
-			mainGroup = 29B97314FDCFA39411CA2CEA /* SFTabView */;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* SFTabView */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* SFTabView */,
+				8DC2EF4F0486A6940098B216 /* SFTabView */,
+				5153197A1577B91F00D37476 /* SFTabViewTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8D1107290486CEB800E47090 /* Resources */ = {
+		515319771577B91F00D37476 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C5CBCFF11BD534200448ADD /* activeTab.png in Resources */,
-				0C5CBD0011BD534200448ADD /* inactiveTab.png in Resources */,
-				0C5CBD0111BD534200448ADD /* MainMenu.xib in Resources */,
-				0C5CBD0211BD534200448ADD /* tabBg.png in Resources */,
-				0C5CBD1311BD537700448ADD /* InfoPlist.strings in Resources */,
+				515319911577B9ED00D37476 /* MainMenu.xib in Resources */,
+				514669FE1577C151007F7018 /* tabBg.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+				51466A3E1577CAE6007F7018 /* activeBody.png in Resources */,
+				51466A3F1577CAE6007F7018 /* activeLeft.png in Resources */,
+				51466A401577CAE6007F7018 /* activeRight.png in Resources */,
+				51466A441577CAF2007F7018 /* inactiveBody.png in Resources */,
+				51466A451577CAF2007F7018 /* inactiveLeft.png in Resources */,
+				51466A461577CAF2007F7018 /* inactiveRight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8D11072C0486CEB800E47090 /* Sources */ = {
+		515319781577B91F00D37476 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072D0486CEB800E47090 /* main.m in Sources */,
-				0C5CBCF611BD52BA00448ADD /* SFDefaultTab.m in Sources */,
-				0C5CBCF711BD52BA00448ADD /* SFTabView.m in Sources */,
-				0C5CBCF811BD52BA00448ADD /* SFTabViewAppDelegate.m in Sources */,
+				515319961577BA1E00D37476 /* main.m in Sources */,
+				515319971577BA1E00D37476 /* SFTabViewTestAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				515318C11577B1E400D37476 /* SFDefaultTab.m in Sources */,
+				515318C31577B1E400D37476 /* SFTabView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		515319801577B92800D37476 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* SFTabView */;
+			targetProxy = 5153197F1577B92800D37476 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
-		0C5CBD1111BD537700448ADD /* InfoPlist.strings */ = {
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0C5CBD1211BD537700448ADD /* English */,
+				089C1667FE841158C02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		5153198F1577B9ED00D37476 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				515319901577B9ED00D37476 /* English */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C01FCF4B08A954540054247B /* Debug */ = {
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SFTabView_Prefix.pch;
-				INFOPLIST_FILE = "SFTabView-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				PRODUCT_NAME = SFTabView;
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
 		};
-		C01FCF4C08A954540054247B /* Release */ = {
+		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SFTabView_Prefix.pch;
-				INFOPLIST_FILE = "SFTabView-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				PRODUCT_NAME = SFTabView;
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
 		};
-		C01FCF4F08A954540054247B /* Debug */ = {
+		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -279,7 +393,7 @@
 			};
 			name = Debug;
 		};
-		C01FCF5008A954540054247B /* Release */ = {
+		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -291,28 +405,85 @@
 			};
 			name = Release;
 		};
+		5153197D1577B92000D37476 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "SFTabViewTest-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = SFTabViewTest;
+			};
+			name = Debug;
+		};
+		5153197E1577B92000D37476 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "SFTabViewTest-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = SFTabViewTest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "SFTabView" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "SFTabView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C01FCF4B08A954540054247B /* Debug */,
-				C01FCF4C08A954540054247B /* Release */,
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SFTabView" */ = {
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "SFTabView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C01FCF4F08A954540054247B /* Debug */,
-				C01FCF5008A954540054247B /* Release */,
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		515319861577B93800D37476 /* Build configuration list for PBXNativeTarget "SFTabViewTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5153197D1577B92000D37476 /* Debug */,
+				5153197E1577B92000D37476 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
 }
