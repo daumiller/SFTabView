@@ -10,7 +10,7 @@ SFTabView was originally developed by [Shiny Frog][1]; this fork is maintained b
 New Changes:
   * up-to-date documentation included in project
   * tabs can be resized
-  * tabs can automatically resize to accomodate title text
+  * tabs can automatically resize to accommodate title text
 
 [1]:https://github.com/shinyfrog
 [2]:https://github.com/daumiller
