@@ -3,8 +3,7 @@ A fully customizable Cocoa Tab view for use with Mac OS X 10.6 or above.
 
 `SFTabView` is released under the BSD license.
 
-SFTabView was originally developed by [Shiny Frog][1] 
-This fork is maintained by [Dillon Aumiller][2]
+SFTabView was originally developed by [Shiny Frog][1]; this fork is maintained by [Dillon Aumiller][2]
 
 New Changes:
   * up-to-date documentation included in project
