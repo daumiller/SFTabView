@@ -15,6 +15,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
   tabView.tabOffset = -15;
+  tabView.tabMinWidth = 128.0;
   tabView.tabAutoSize = YES;
   [tabView addTabWithRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Tab One",@"name",nil]];
   [tabView addTabWithRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Tab Two",@"name",nil]];

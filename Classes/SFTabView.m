@@ -8,7 +8,7 @@
 //
 //==================================================================================================================================
 #import "SFTabView.h"
-#import "SFDefaultTab.h"
+#import "SFTab.h"
 //==================================================================================================================================
 @implementation SFTabView
 @synthesize delegate, defaultTabClassName;
@@ -53,7 +53,7 @@
   tabOffset           = 0;
   startingOffset      = 0;
   tabMagneticForce    = 5;
-  defaultTabClassName = @"SFDefaultTab";
+  defaultTabClassName = @"SFTab";
    
   [self setupObservers];
 }
@@ -324,14 +324,11 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 - (CGFloat)getDesiredTabWidth
 {
-  CGFloat tabDesired = 60.0;
+  CGFloat tabDesired = 60.0, curr;
   for(id tab in arrangedTabs)
   {
-    if([tab respondsToSelector:@selector(desiredWidth)])
-    {
-      CGFloat curr = [tab desiredWidth];
-      if(curr > tabDesired) tabDesired = curr;
-    }
+    curr = [tab desiredWidth];
+    if(curr > tabDesired) tabDesired = curr;
   }
   if(tabDesired < tabMinWidth) tabDesired = tabMinWidth;
   if(tabDesired > tabMaxWidth) tabDesired = tabMaxWidth;
@@ -347,8 +344,7 @@
     [tabsLayer setValue:[NSNumber numberWithInt:totalWidth] forKeyPath: @"frame.size.width"];
     
     for(id tab in arrangedTabs)
-      if([tab respondsToSelector:@selector(resize:)])
-        [tab resize:tabWidth];
+      [tab resize:tabWidth];
   }
   else
   {
@@ -368,8 +364,7 @@
       newFrame.origin.x += runningAdj;
       tab.frame = newFrame;
       runningAdj += unitAdj;
-      if([tab respondsToSelector:@selector(resize:)])
-        [(id)tab resize:tabWidth];
+      [(SFTab *)tab resize:tabWidth];
     }
   }
 }
@@ -424,10 +419,7 @@
   id newtab = [tabLayerClass layer];
   
   // Passing the represented object to the tab layer.
-  if([newtab respondsToSelector:@selector(setRepresentedObject:andWidth:)])
-    [newtab setRepresentedObject:representedObject andWidth:tabWidth];
-  else if([newtab respondsToSelector:@selector(setRepresentedObject:)])
-    [newtab setRepresentedObject:representedObject];
+  [newtab setRepresentedObject:representedObject andWidth:tabWidth];
   
   // Removing animation for z-index changes.
   NSMutableDictionary *customActions = [NSMutableDictionary dictionaryWithDictionary:[newtab actions]];
@@ -602,21 +594,19 @@
     return;
   
   if([delegate respondsToSelector:@selector(tabView:willSelectTab:)])
-    [delegate tabView:self willSelectTab:tab];
+		[delegate tabView:self willSelectTab:tab];
   
-  if(currentSelectedTab)
+	if(currentSelectedTab)
   {
-    currentSelectedTab.zPosition = ([self indexOfTab:currentSelectedTab] * -1.0);      
-    if([currentSelectedTab respondsToSelector:@selector(setSelected:)])
-      [(id)currentSelectedTab setSelected: NO];
-    currentSelectedTab = nil;
+    currentSelectedTab.zPosition = ([self indexOfTab:currentSelectedTab] * -1.0);
+    [(id)currentSelectedTab setSelected: NO];
+  	currentSelectedTab = nil;
   }
 
   currentSelectedTab = tab;
   currentSelectedTab.zPosition = 1000;
 
-  if([currentSelectedTab respondsToSelector:@selector(setSelected:)])
-    [(id)currentSelectedTab setSelected: YES];
+  [(id)currentSelectedTab setSelected: YES];
   
   if([delegate respondsToSelector:@selector(tabView:didSelectTab:)])
     [delegate tabView:self didSelectTab:tab];

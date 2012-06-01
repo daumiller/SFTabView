@@ -15,8 +15,8 @@
 		51466A441577CAF2007F7018 /* inactiveBody.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A411577CAF2007F7018 /* inactiveBody.png */; };
 		51466A451577CAF2007F7018 /* inactiveLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A421577CAF2007F7018 /* inactiveLeft.png */; };
 		51466A461577CAF2007F7018 /* inactiveRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A431577CAF2007F7018 /* inactiveRight.png */; };
-		515318C01577B1E400D37476 /* SFDefaultTab.h in Headers */ = {isa = PBXBuildFile; fileRef = 515318BC1577B1E400D37476 /* SFDefaultTab.h */; };
-		515318C11577B1E400D37476 /* SFDefaultTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 515318BD1577B1E400D37476 /* SFDefaultTab.m */; };
+		515318C01577B1E400D37476 /* SFTab.h in Headers */ = {isa = PBXBuildFile; fileRef = 515318BC1577B1E400D37476 /* SFTab.h */; };
+		515318C11577B1E400D37476 /* SFTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 515318BD1577B1E400D37476 /* SFTab.m */; };
 		515318C21577B1E400D37476 /* SFTabView.h in Headers */ = {isa = PBXBuildFile; fileRef = 515318BE1577B1E400D37476 /* SFTabView.h */; };
 		515318C31577B1E400D37476 /* SFTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 515318BF1577B1E400D37476 /* SFTabView.m */; };
 		515319471577B7D700D37476 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515319461577B7D700D37476 /* QuartzCore.framework */; };
@@ -50,8 +50,8 @@
 		51466A411577CAF2007F7018 /* inactiveBody.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = inactiveBody.png; path = Resources/inactiveBody.png; sourceTree = "<group>"; };
 		51466A421577CAF2007F7018 /* inactiveLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = inactiveLeft.png; path = Resources/inactiveLeft.png; sourceTree = "<group>"; };
 		51466A431577CAF2007F7018 /* inactiveRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = inactiveRight.png; path = Resources/inactiveRight.png; sourceTree = "<group>"; };
-		515318BC1577B1E400D37476 /* SFDefaultTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFDefaultTab.h; path = Classes/SFDefaultTab.h; sourceTree = "<group>"; };
-		515318BD1577B1E400D37476 /* SFDefaultTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFDefaultTab.m; path = Classes/SFDefaultTab.m; sourceTree = "<group>"; };
+		515318BC1577B1E400D37476 /* SFTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFTab.h; path = Classes/SFTab.h; sourceTree = "<group>"; };
+		515318BD1577B1E400D37476 /* SFTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFTab.m; path = Classes/SFTab.m; sourceTree = "<group>"; };
 		515318BE1577B1E400D37476 /* SFTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFTabView.h; path = Classes/SFTabView.h; sourceTree = "<group>"; };
 		515318BF1577B1E400D37476 /* SFTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFTabView.m; path = Classes/SFTabView.m; sourceTree = "<group>"; };
 		515318C81577B21000D37476 /* tabBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tabBg.png; path = Resources/tabBg.png; sourceTree = "<group>"; };
@@ -141,8 +141,8 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				515318BC1577B1E400D37476 /* SFDefaultTab.h */,
-				515318BD1577B1E400D37476 /* SFDefaultTab.m */,
+				515318BC1577B1E400D37476 /* SFTab.h */,
+				515318BD1577B1E400D37476 /* SFTab.m */,
 				515318BE1577B1E400D37476 /* SFTabView.h */,
 				515318BF1577B1E400D37476 /* SFTabView.m */,
 				515319921577BA1E00D37476 /* Test */,
@@ -194,7 +194,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				515318C01577B1E400D37476 /* SFDefaultTab.h in Headers */,
+				515318C01577B1E400D37476 /* SFTab.h in Headers */,
 				515318C21577B1E400D37476 /* SFTabView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,6 +244,9 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "SFTabView" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -305,7 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				515318C11577B1E400D37476 /* SFDefaultTab.m in Sources */,
+				515318C11577B1E400D37476 /* SFTab.m in Sources */,
 				515318C31577B1E400D37476 /* SFTabView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

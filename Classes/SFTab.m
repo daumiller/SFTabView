@@ -1,5 +1,5 @@
 //
-//  SFDefaultTab.m
+//  SFTab.m
 //  tabtest
 //
 //  Created by Matteo Rattotti on 2/28/10.
@@ -7,7 +7,7 @@
 //  Copyright 2012 Dillon Aumiller. All rights reserved.
 //
 //==================================================================================================================================
-#import "SFDefaultTab.h"
+#import "SFTab.h"
 //----------------------------------------------------------------------------------------------------------------------------------
 static CGImageRef activeLeft;
 static CGImageRef activeBody;
@@ -28,7 +28,7 @@ static NSDictionary *textLabelAttributes;
 @end
 
 //==================================================================================================================================
-@implementation SFDefaultTab
+@implementation SFTab
 //----------------------------------------------------------------------------------------------------------------------------------
 + (void)initStaticObjects
 {
@@ -136,7 +136,7 @@ static NSDictionary *textLabelAttributes;
   CAConstraintLayoutManager *layout = [CAConstraintLayoutManager layoutManager];
   [self setLayoutManager:layout];
   
-  if(!activeLeft) [SFDefaultTab initStaticObjects];
+  if(!activeLeft) [SFTab initStaticObjects];
   if(!layerLeft ) [self initDynamicObjects:128.0];
   
   if([representedObject objectForKey:@"name"] != nil)
@@ -152,7 +152,7 @@ static NSDictionary *textLabelAttributes;
   CAConstraintLayoutManager *layout = [CAConstraintLayoutManager layoutManager];
   [self setLayoutManager:layout];
   
-  if(!activeLeft) [SFDefaultTab initStaticObjects];
+  if(!activeLeft) [SFTab initStaticObjects];
   if(!layerLeft ) [self initDynamicObjects:width];
   
   if([representedObject objectForKey:@"name"] != nil)

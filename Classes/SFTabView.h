@@ -55,14 +55,14 @@
 
 
 /** 
- @brief The SFTabView Delegate.
+  The SFTabView Delegate.
  
  */
 @property (retain) id delegate;
 
 
 /** 
- @brief The CALayer subclass that will render a single tab.
+  The CALayer subclass that will render a single tab.
  
  This class should be conform to the SFTab protocoll.  
  */
@@ -70,7 +70,7 @@
 
 
 /** 
- @brief The space between two tabs.
+  The space between two tabs.
 
  This property can hold negative values in order to make tabs overlap. 
  
@@ -80,7 +80,7 @@
 
 
 /** 
- @brief The space before the first tab.
+  The space before the first tab.
  
  The first tab will appear shifted to "startingOffset" pixel.
  
@@ -91,7 +91,7 @@
 
 
 /** 
- @brief The number of pixel that the user need to drag before the tab actually move.
+  The number of pixel that the user need to drag before the tab actually move.
  
  High value will make the tabs harder to move, a value of 0 will make the tab moving at
  every drag tentative.
@@ -99,33 +99,33 @@
 @property int tabMagneticForce;
 
 /**
- @brief Determines if tabs will grow/shrink as needed.
+  Determines if tabs will grow/shrink as needed.
  
  When YES, tabs will attempt to fit name labels' text.
  */
-@property BOOL tabAutoSize;
+@property (nonatomic, assign) BOOL tabAutoSize;
 
 /**
- @brief Size of fixed-width tabs.
+  Size of fixed-width tabs.
  
  Only used when (tabAutoSize == NO).
  Note this currently has a hard-coded minimum value of 60.0.
  */
-@property CGFloat tabWidth;
+@property (nonatomic, assign) CGFloat tabWidth;
 
 /**
- @brief Minimum width of tabs.
+  Minimum width of tabs.
  
  Note this currently has a hard-coded minimum value of 60.0.
  */
-@property CGFloat tabMinWidth;
+@property (nonatomic, assign) CGFloat tabMinWidth;
 
 /**
- @brief Maximum width of tabs.
+  Maximum width of tabs.
  
  Note this currently has a card-coded minimum value of 60.0
  */
-@property CGFloat tabMaxWidth;
+@property (nonatomic, assign) CGFloat tabMaxWidth;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @name Adding and Removing Tabs
@@ -136,7 +136,7 @@
 #pragma mark Adding and Removing Tabs
 
 /** 
- @brief Add a new tab to the tabview, using the representedObject as model.
+  Add a new tab to the tabview, using the representedObject as model.
   
  @param representedObject An object passed to the CALayer subclass that contain all the in
  fomation needed for rendering the tab.
@@ -147,7 +147,7 @@
 
 
 /** 
- @brief Add a new tab to the tabview at the specified index, using the representedObject as model.
+  Add a new tab to the tabview at the specified index, using the representedObject as model.
  
  @param index The index in the tabview at which to insert a new tab.
  @param representedObject An object passed to the CALayer subclass that contain all the in
@@ -159,7 +159,7 @@
 
 
 /** 
- @brief Remove the tab from the tabview.
+  Remove the tab from the tabview.
  
  @param tab The tab to remove from the tabview.
  @see removeTabAtIndex:
@@ -169,7 +169,7 @@
 
 
 /** 
- @brief Remove the tab at index.
+  Remove the tab at index.
  
  @param index The index from which to remove the object in the tabview.
  @see removeTab:
@@ -188,7 +188,7 @@
 
 
 /** 
- @brief Returns the index corresponding to tab.
+  Returns the index corresponding to tab.
  
  Tabs are considered equal if isEqual: returns YES.
  
@@ -199,13 +199,13 @@
 
 
 /** 
- @brief Returns the number of tab in the Tab View.
+  Returns the number of tab in the Tab View.
  */
 - (int) numberOfTabs;
 
 
 /**
- @brief Returns the tab located at index.
+  Returns the tab located at index.
  
  If index is beyond the end of the Tab View (that is, if index is greater than or equal to the value returned by numberOfTabs), an NSRangeException is raised.
  
@@ -217,21 +217,21 @@
 
 
 /** 
- @brief Returns an array contaning all the Tab View tabs.
+  Returns an array contaning all the Tab View tabs.
  @return An array contaning all the Tab View tabs.
  */
 - (NSArray *) arrangedTabs;
 
 
 /** 
- @brief Returns the first tab in the Tab View.
+  Returns the first tab in the Tab View.
  @return The first tab in the Tab View. If the Tab View contain no tabs, returns nil.
  */
 - (CALayer *) firstTab;
 
 
 /** 
- @brief Returns the last tab in the Tab View.
+  Returns the last tab in the Tab View.
  @return The last tab in the Tab View. If the Tab View contain no tabs, returns nil.
  */
 - (CALayer *) lastTab;
@@ -247,7 +247,7 @@
 
 
 /** 
- @brief Select the given tab in the tabview.
+  Select the given tab in the tabview.
  @param tab A tab contained in the Tab View.
  @see selectFirstTab:
  @see selectLastTab:
@@ -258,7 +258,7 @@
 
 
 /** 
- @brief Select a tab at given index.
+  Select a tab at given index.
  @param index An index within the bounds of the Tab View.
 
  @see selectFirstTab:
@@ -270,7 +270,7 @@
 
 
 /** 
- @brief Select the first tab of the Tab View.
+  Select the first tab of the Tab View.
  @param sender Typically the object that sent the message.
  
  @see selectFirstTab:
@@ -282,7 +282,7 @@
 
 
 /** 
- @brief Select the last tab of the Tab View
+  Select the last tab of the Tab View
  @param sender Typically the object that sent the message.
  
  @see selectFirstTab:
@@ -294,7 +294,7 @@
 
 
 /** 
- @brief Select the tab on the right of the current selected tab.
+  Select the tab on the right of the current selected tab.
  
  If the tab is the last one, the first tab of the Tab View will be selected, and
  the Tab View will be scrolled according.
@@ -310,7 +310,7 @@
 
 
 /** 
- @brief Select the tab on the left of the current selected tab.
+  Select the tab on the left of the current selected tab.
  
  If the tab is the first one, the last tab of the Tab View will be selected, and
  the Tab View will be scrolled according.
@@ -326,7 +326,7 @@
 
 
 /** 
- @brief Returns the current selected tab.
+  Returns the current selected tab.
  @return The current selected tab in the Tab View. If the Tab View contain no tabs, returns nil.
  */
 - (CALayer *) selectedTab;
@@ -341,7 +341,7 @@
 
 
 /** 
- @brief Scroll the Tab View until tab is fully visibile.
+  Scroll the Tab View until tab is fully visibile.
  @param tab A tab contained in the Tab View.
  
  This method will scroll the Tab View using the default animation.
@@ -352,7 +352,7 @@
 
 
 /** 
- @brief Scroll the Tab View until tab is fully visibile.
+  Scroll the Tab View until tab is fully visibile.
  @param tab A tab contained in the Tab View.
  @param animated Specify YES to animate the transition or NO if you do not want the transition to be animated.
  
@@ -400,7 +400,7 @@
 
 @optional
 /** 
- @brief Sent to the delegate to allow or prohibit the specified tab to be selected.
+  Sent to the delegate to allow or prohibit the specified tab to be selected.
  @param tabView The Tab View that sent the message.
  @param tab A tab contained in the Tab View.
  
@@ -416,7 +416,7 @@
 
 
 /** 
- @brief Sent at the time the user clicked a tab in the Tab View.
+  Sent at the time the user clicked a tab in the Tab View.
  @param tabView The Tab View that sent the message.
  @param tab A tab contained in the Tab View.
   
@@ -426,7 +426,7 @@
 - (void)tabView:(SFTabView *)tabView didSelectTab:(CALayer *)tab;
 
 /** 
- @brief Sent at the time the user clicked a tab in the Tab View, just before the tab will change state.
+  Sent at the time the user clicked a tab in the Tab View, just before the tab will change state.
  @param tabView The Tab View that sent the message.
  @param tab A tab contained in the Tab View.
  
@@ -442,7 +442,7 @@
 
 
 /** 
- @brief Sent after a new tab is added to the Tab View.
+  Sent after a new tab is added to the Tab View.
  @param tabView The Tab View that sent the message.
  @param tab The new tab added to the the Tab View.
  
@@ -452,7 +452,7 @@
 
 
 /** 
- @brief Sent after a tab is deleted from the Tab View.
+  Sent after a tab is deleted from the Tab View.
  @param tabView The Tab View that sent the message.
  @param tab The tab deleted from the the Tab View.
  
@@ -471,24 +471,39 @@
 
 @required
 /** 
- @brief Tabs are are created or modified using the representedObject as model.
+  Tabs are are created or modified using the representedObject as model.
  @param representedObject The Object passed to the layer that contain the information for drawing it (title, size, etc...).
+ @param width The initial width of the tab.
  
  The implementation of this method should read the information of the representedObject and build or update the CALayer
  according to it.
  
  */
-- (void) setRepresentedObject: (id) representedObject;
+- (void) setRepresentedObject: (id) representedObject andWidth: (CGFloat) width;
 
 
 /** 
- @brief Toggle the selected state of a tab.
+  Toggle the selected state of a tab.
  @param selected If YES the tag is selected.
  
  Usually the tab will change state if selected or not, the implementation should reflect this behaviour.
  
  */
 - (void) setSelected: (BOOL) selected;
+
+/**
+  Resize tab to new width.
+ @param width New width of tab.
+ */
+- (void) resize: (CGFloat)width;
+
+/**
+  Returns desired width of tab.
+ 
+ The defaultimplementation returns the width needed to display the tab with a non-truncated title.
+ */
+- (CGFloat) desiredWidth;
+
 
 @end
 

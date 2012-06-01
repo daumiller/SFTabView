@@ -2,4 +2,9 @@ build
 Build
 *.pbxuser
 *.mode1v3
+*.xcworkspacedata
+*.xcuserstate
+*.xcsettings
+*.xcscheme
+xcschememanagement.plist
 .DS_Store

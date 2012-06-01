@@ -1,5 +1,5 @@
 //
-//  SFDefaultTab.h
+//  SFTab.h
 //  tabtest
 //
 //  Created by Matteo Rattotti on 2/28/10.
@@ -16,7 +16,7 @@
 @end
 
 //==================================================================================================================================
-@interface SFDefaultTab : CALayer
+@interface SFTab : CALayer
 {
   id representedObject;
   SFTabChildLayer *layerLeft;
@@ -25,7 +25,7 @@
   SFTabChildLayer *layerLabel;
   BOOL             isActiveTab;
 }
-@property (retain) id representedObject;
+@property (nonatomic, retain) id representedObject;
 //----------------------------------------------------------------------------------------------------------------------------------
 - (void)setRepresentedObject:(id)inRepresentedObject andWidth:(CGFloat)width;
 //----------------------------------------------------------------------------------------------------------------------------------
