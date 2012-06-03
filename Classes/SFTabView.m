@@ -1,6 +1,6 @@
 //
 //  SFTabView.m
-//  tabtest
+//  SFTabView
 //
 //  Created by Matteo Rattotti on 2/27/10.
 //  Copyright 2010 www.shinyfrog.net. All rights reserved.

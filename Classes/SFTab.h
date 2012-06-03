@@ -1,6 +1,6 @@
 //
 //  SFTab.h
-//  tabtest
+//  SFTabView
 //
 //  Created by Matteo Rattotti on 2/28/10.
 //  Copyright 2010 www.shinyfrog.net. All rights reserved.
@@ -12,7 +12,8 @@
 #import "SFTabView.h"
 
 //==================================================================================================================================
-@interface SFTabChildLayer : CATextLayer {}
+//simple CALayer child class that will always return false to containsPoint:
+@interface SFTabHeader : CATextLayer {}
 @end
 
 //==================================================================================================================================
@@ -32,16 +33,16 @@
   
   SFTabView *parent;
   
-  SFTabChildLayer *layerLeft;
-  SFTabChildLayer *layerBody;
-  SFTabChildLayer *layerRight;
-  SFTabChildLayer *layerLabel;
+  SFTabHeader *layerLeft;
+  SFTabHeader *layerBody;
+  SFTabHeader *layerRight;
+  SFTabHeader *layerLabel;
 }
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /**
  Title of the tab. Displayed in tab header.
  */
-@property (retain) NSString *title;
+@property (nonatomic, retain) NSString *title;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /*
  Icon of the tab. Displayed in tab header.
@@ -51,27 +52,32 @@
 /**
  Tab's content object. Should be either an NSView or CALayer, depending on the `SFTabView` parent's `targetIsLayer` property.
  */
-@property (retain) id content;
+@property (nonatomic, retain) id content;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /**
  User data. Store any id here.
  */
-@property (retain) id data;
+@property (nonatomic, retain) id data;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /**
  Get or set current tab as selected.
+ 
+ **Note:** Setting the `selected` value will bypass `SFTabView` parent's delegate's `shouldSelectTab:` method.
  */
-@property (assign) BOOL selected;
+@property (nonatomic, assign) BOOL selected;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /**
- Get or set tab width;
+ Get or set tab width.
+ 
+ + There is currently a hard-coded minimum value of 60.
+ + If this value is directly set, all sibling tabs will also resize to the given width.
  */
-@property (assign) CGFloat width;
+@property (nonatomic, assign) CGFloat width;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /**
- Get `SFTabView` parent of this tab.
+ Get or set `SFTabView` parent of this tab.
  */
-@property (readonly) SFTabView *parent;
+@property (nonatomic, assign) SFTabView *parent;
 //----------------------------------------------------------------------------------------------------------------------------------
 /** Constructor. */
 + tab;
@@ -113,7 +119,13 @@
  Get desired width of tab.
  
  Returns the required width to fully display the tab header image, optional title, and optional icon.
+ **Note:** Currently will never return less than the hard-coded minimum value of 60.
  */
 - (CGFloat)desiredWidth;
 //==================================================================================================================================
+
+//These should only be called by our SFTabView parent.
+- (void)parentSetParent:(SFTabView *)inParent;
+- (void)parentSetSelected:(BOOL)selected;
+- (void)parentSetWidth:(CGFloat)width;
 @end

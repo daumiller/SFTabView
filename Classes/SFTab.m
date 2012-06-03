@@ -1,12 +1,13 @@
 //
 //  SFTab.m
-//  tabtest
+//  SFTabView
 //
 //  Created by Matteo Rattotti on 2/28/10.
 //  Copyright 2010 www.shinyfrog.net. All rights reserved.
 //  Copyright 2012 Dillon Aumiller. All rights reserved.
 //
 //==================================================================================================================================
+#import "SFTabViewDelegate.h"
 #import "SFTab.h"
 //----------------------------------------------------------------------------------------------------------------------------------
 static CGImageRef activeLeft;
@@ -18,7 +19,10 @@ static CGImageRef inactiveRight;
 static NSDictionary *textLabelAttributes;
 
 //==================================================================================================================================
-@implementation SFTabChildLayer
+#pragma mark -
+#pragma mark Tab Header
+//==================================================================================================================================
+@implementation SFTabHeader
 //----------------------------------------------------------------------------------------------------------------------------------
 - (BOOL)containsPoint:(CGPoint)p
 {
@@ -28,9 +32,157 @@ static NSDictionary *textLabelAttributes;
 @end
 
 //==================================================================================================================================
+#pragma mark -
+#pragma mark Properties
+//==================================================================================================================================
 @implementation SFTab
 //----------------------------------------------------------------------------------------------------------------------------------
-+ (void)initStaticObjects
+@synthesize content;
+@synthesize data;
+@synthesize selected;
+@synthesize width;
+@synthesize parent;
+//----------------------------------------------------------------------------------------------------------------------------------
+- (NSString *)title { return title; }
+- (void)setTitle:(NSString *)inTitle
+{
+  @synchronized(title)
+  {
+  	[title release];
+  	title = [inTitle retain];
+  }
+  
+  //do a soft resize request; don't override any user settings
+  if(parent)
+    [parent tabRequestedResize:[self desiredWidth]];
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (void)setContent:(id)inContent
+{
+  if(parent)
+  {
+	  if(selected && content && parent.target)
+	  {
+			if(parent.targetIsLayer)
+				[content removeFromSuperlayer];
+			else
+				[content removeFromSuperview];
+		}
+  }
+  
+  if(content) [content release];
+  content = [inContent retain];
+  
+  if(parent)
+  {
+    if(selected && content && parent.target)
+    {
+      if(parent.targetIsLayer)
+        [[parent target] addSublayer:content];
+      else
+        [[parent target] addSubview:content];
+    }
+  }
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (void)setSelected:(BOOL)inSelected
+{
+  if(parent)
+    parent.selectedTab = self;
+  else
+    selected = inSelected;
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (void)setWidth:(CGFloat)inWidth
+{
+  if(inWidth < 60.0) inWidth = 60.0;
+  
+  if(parent)
+    parent.tabWidth = inWidth;
+  else
+    width = inWidth;
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (void)setParent:(SFTabView *)inParent
+{
+  if(parent)   [parent removeTab:self];
+  if(inParent) [inParent addTab:self];
+  parent = inParent;
+}
+
+//==================================================================================================================================
+#pragma mark -
+#pragma mark Init, Constructors, & Cleanup
+//==================================================================================================================================
++ (void)initialize
+{
+  [self initStaticHeaderData];
+}
+//----------------------------------------------------------------------------------------------------------------------------------
++ tab
+{
+  return [[[SFTab alloc] init] autorelease];
+}
+//----------------------------------------------------------------------------------------------------------------------------------
++ tabWithTitle:(NSString *)title
+{
+  return [[[SFTab alloc] initWithTitle:title content:nil data:nil] autorelease];
+}
+//----------------------------------------------------------------------------------------------------------------------------------
++ tabWithTitle:(NSString *)title content:(id)content
+{
+  return [[[SFTab alloc] initWithTitle:title content:content data:nil] autorelease];
+}
+//----------------------------------------------------------------------------------------------------------------------------------
++ tabWithTitle:(NSString *)title content:(id)content data:(id)data;
+{
+  return [[[SFTab alloc] initWithTitle:title content:content data:data] autorelease];
+}
+//----------------------------------------------------------------------------------------------------------------------------------
+- initWithTitle:(NSString *)inTitle content:(id)inContent data:(id)inData
+{
+  self = [super init];
+  if(self)
+  {
+    title    = [inTitle retain];
+    content  = [inContent retain];
+    data     = [inData retain];
+    selected = NO;
+    width    = 128.0;
+    parent   = nil;
+    [self initDynamicHeaderData];
+  }
+  return self;
+}
+//----------------------------------------------------------------------------------------------------------------------------------
+- (void)dealloc
+{
+  [layerLabel release];
+  [layerLeft  release];
+  [layerBody  release];
+  [layerRight release];
+  [title   release];
+  [content release];
+  [data    release];
+  [super dealloc];
+}
+
+//==================================================================================================================================
+#pragma mark -
+#pragma mark Utility
+//==================================================================================================================================
+- (CGFloat)desiredWidth
+{
+  if(!title) return 128.0;
+  CGFloat actualNeeded = [title sizeWithAttributes:textLabelAttributes].width + 52.0;
+  return (actualNeeded > 60.0) ? actualNeeded	: 60.0;
+}
+
+//==================================================================================================================================
+#pragma mark -
+#pragma mark Header Data (class internal)
+//==================================================================================================================================
++ (void)initStaticHeaderData
 {
   NSBundle *myBundle = [NSBundle bundleForClass:[SFTabView class]];
   CFStringRef path; CFURLRef imageURL; CGImageSourceRef imageSource;
@@ -74,12 +226,12 @@ static NSDictionary *textLabelAttributes;
   textLabelAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"LucidaGrande" size:13.0], NSFontAttributeName, nil] retain];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-- (void)initDynamicObjects:(CGFloat)width;
+- (void)initDynamicHeaderData
 {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   self.frame = CGRectMake(0, 0, width, 28);
   
-  layerLabel = [[SFTabChildLayer layer] retain];
+  layerLabel = [[SFTabHeader layer] retain];
   layerLabel.frame = CGRectMake(25.0, 0.0, width-50.0, 28.0);
   [layerLabel setFontSize:13.0f];
   [layerLabel setShadowOpacity:.9f];
@@ -111,10 +263,11 @@ static NSDictionary *textLabelAttributes;
   [layerLabel setFont:@"LucidaGrande"];
   
   //for some reason, during dragging these were getting off by 1 pixel
-  //so, layerBody is now padded to X:25 W:75 (from original X:26 W:73)
-  layerLeft  = [[SFTabChildLayer layer] retain]; layerLeft.frame  = CGRectMake( 0.0, 0.0, 26.0, 28.0);
-  layerBody  = [[SFTabChildLayer layer] retain]; layerBody.frame  = CGRectMake(25.0, 0.0, width-50.0, 28.0); layerBody.contentsGravity = kCAGravityResize;
-  layerRight = [[SFTabChildLayer layer] retain]; layerRight.frame = CGRectMake(width-26.0, 0.0, 26.0, 28.0);
+  //so, layerBody is now padded to X:-1 W:+2
+  layerLeft  = [[SFTabHeader layer] retain]; layerLeft.frame  = CGRectMake( 0.0, 0.0, 26.0, 28.0);
+  layerBody  = [[SFTabHeader layer] retain]; layerBody.frame  = CGRectMake(25.0, 0.0, width-50.0, 28.0);
+  layerRight = [[SFTabHeader layer] retain]; layerRight.frame = CGRectMake(width-26.0, 0.0, 26.0, 28.0);
+  layerBody.contentsGravity = kCAGravityResize;
   
   [layerLeft  setContents:(id)inactiveLeft];
   [layerBody  setContents:(id)inactiveBody];
@@ -126,77 +279,64 @@ static NSDictionary *textLabelAttributes;
   [self addSublayer:layerLabel];
   [pool drain];
 }
-//----------------------------------------------------------------------------------------------------------------------------------
-@synthesize representedObject;
-- (void)setRepresentedObject:(id)inRepresentedObject
-{
-  [representedObject release];
-  representedObject = [inRepresentedObject retain];
-  
-  CAConstraintLayoutManager *layout = [CAConstraintLayoutManager layoutManager];
-  [self setLayoutManager:layout];
-  
-  if(!activeLeft) [SFTab initStaticObjects];
-  if(!layerLeft ) [self initDynamicObjects:128.0];
-  
-  if([representedObject objectForKey:@"name"] != nil)
-    layerLabel.string = [representedObject objectForKey:@"name"];
-}
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-- (void)setRepresentedObject:(id)inRepresentedObject andWidth:(CGFloat)width
-{
-  [representedObject release];
-  representedObject = [inRepresentedObject retain];
-  
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  CAConstraintLayoutManager *layout = [CAConstraintLayoutManager layoutManager];
-  [self setLayoutManager:layout];
-  
-  if(!activeLeft) [SFTab initStaticObjects];
-  if(!layerLeft ) [self initDynamicObjects:width];
-  
-  if([representedObject objectForKey:@"name"] != nil)
-    layerLabel.string = [representedObject objectForKey:@"name"];
-  
-  [pool drain];
-}
 
+//==================================================================================================================================
+#pragma mark -
+#pragma mark Parent Calls (framework internal)
+//==================================================================================================================================
+- (void)parentSetParent:(SFTabView *)inParent
+{
+  if(parent && selected)
+    [self parentSetSelected:NO];
+  parent = inParent;
+
+  if(parent)
+    [parent tabRequestedResize:[self desiredWidth]];
+}
 //----------------------------------------------------------------------------------------------------------------------------------
-- (void)setSelected:(BOOL)selected
+- (void)parentSetSelected:(BOOL)selected
 {
   [CATransaction begin]; 
   [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-
+  
   if(selected)
   {
-    isActiveTab = YES;
+    selected = YES;
     [layerLeft  setContents:(id)activeLeft];
     [layerBody  setContents:(id)activeBody];
     [layerRight setContents:(id)activeRight];
-    //[layerBody addSublayer:layerLabel];
-    if(representedObject)
+    if(content && parent.target)
     {
-      NSView *container = [representedObject objectForKey:@"container"];
-      NSView *content   = [representedObject objectForKey:@"content"  ];
-      if(container && content)
+      if(parent.targetIsLayer)
       {
-        [content   setFrame:[container bounds]];
-        [content   setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-        [container addSubview:content];
+        [(CALayer *)content setFrame:[parent.target bounds]];
+        //TODO: autoresizing for CALayers??
+        [parent.target addSublayer:content];
+      }
+      else
+      {
+        //casting to avoid multiple definitions warning on setAutoResizingMask:
+        [(NSView *)content setFrame:[parent.target bounds]];
+        [(NSView *)content setAutoresizingMask: NSViewWidthSizable|NSViewHeightSizable]; //TODO: this should be customizable
+        [parent.target addSubView:content];
       }
     }
   }
   else
   {
-    isActiveTab = NO;
+    selected = NO;
     [layerLeft  setContents:(id)inactiveLeft];
     [layerBody  setContents:(id)inactiveBody];
     [layerRight setContents:(id)inactiveRight];
-    if(representedObject)
+    if(content && parent.target)
     {
-      NSView *container = [representedObject objectForKey:@"container"];
-      NSView *content   = [representedObject objectForKey:@"content"  ];
-      if(container && content)
+      if(parent.targetIsLayer)
+      {
+        //VERIFY: removeFromSuperlayer doesn't call autorelease (like removeFromSuperview does)
+        //  no mention of it in the docs...
+        [content removeFromSuperlayer];
+      }
+      else
       {
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
         [content retain];
@@ -209,38 +349,16 @@ static NSDictionary *textLabelAttributes;
   [CATransaction commit];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-- (CGFloat)desiredWidth
+- (void)parentSetWidth:(CGFloat)inWidth
 {
-  if(!representedObject) return 60.0;
-  NSString *name = [representedObject objectForKey:@"name"];
-  if(name == nil) return 60.0;
-  
-  //return [name sizeWithAttributes:textLabelAttributes].width;
-  CGFloat desired = [name sizeWithAttributes:textLabelAttributes].width + 52.0;
-  return desired;
-}
-//----------------------------------------------------------------------------------------------------------------------------------
-- (void)resize:(CGFloat)width
-{
-  //parent will ensure width is always >= 60.0
+  width = inWidth;
   layerBody.frame  = CGRectMake(25.0, 0.0, width-50.0, 28.0);
   layerRight.frame = CGRectMake(width-26.0, 0.0, 26.0, 28.0);
   layerLabel.frame = layerBody.frame;
-  if(isActiveTab)
+  if(selected)
     [layerBody setContents:(id)activeBody];
   else
     [layerBody setContents:(id)inactiveBody];
-}
-//----------------------------------------------------------------------------------------------------------------------------------
-- (void)dealloc
-{
-  [representedObject release];
-  
-  [layerLabel release];
-  [layerLeft  release];
-  [layerBody  release];
-  [layerRight release];
-  [super dealloc];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 @end
