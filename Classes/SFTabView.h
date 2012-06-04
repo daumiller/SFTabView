@@ -20,9 +20,7 @@
  The SFTabViewAppDelegate protocol will notify the delegate during notable Tab View events, 
  like selecting, adding and deleting tabs.
  
- The tabs are rendered using a CALayer subclass, the Tab View will know which class to use by
- setting the defaultTabClassName property.
-  
+ Custom SFTab subclassed tabs can be used by setting the `defaultTabClassName` property.
 */
 
 @interface SFTabView : NSView
@@ -53,23 +51,19 @@
   BOOL targetIsLayer;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
-/// @name Properties
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
+//----------------------------------------
+/** @name Properties */
+//----------------------------------------
 /** 
   The SFTabView Delegate.
  
  */
 @property (retain) id delegate;
 
-
 /** 
   The SFTab subclass that will represent a single tab.
  */
 @property (retain) NSString *defaultTabClassName;
-
 
 /** 
   The space between two tabs.
@@ -141,16 +135,16 @@
  */
 @property (nonatomic, assign) BOOL targetIsLayer;
 
-//////////////////////////////////////////////////////////////////////////////////////////
-/// @name Adding and Removing Tabs
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
 #pragma mark -
 #pragma mark Adding and Removing Tabs
+//----------------------------------------
+/** @name Adding and Removing Tabs */
+//----------------------------------------
 
 /**
  Add an existing SFTab to the view.
+ 
+ @param tab Existing tab to add.
  */
 - (void) addTab:(id)tab;
 
@@ -168,6 +162,8 @@
  
  + `content` will be `nil`
  + `data` will be `nil`
+ 
+ @param title Title of new tab.
  */
 - (id) addNewTabWithTitle:(NSString *)title;
 
@@ -175,11 +171,18 @@
  Add a new tab.
  
  + `data` will be `nil`
+ 
+ @param title Title of new tab.
+ @param content Content view/layer of new tab.
  */
 - (id) addNewTabWithTitle:(NSString *)title content:(id)content;
 
 /**
  Add a new tab.
+ 
+ @param title Title of new tab.
+ @param content Content view/layer of new tab.
+ @param data User data for new tab.
  */
 - (id) addNewTabWithTitle:(NSString *)title content:(id)content data:(id)data;
 
@@ -202,15 +205,11 @@
  */
 - (void) removeTabAtIndex: (int) index;
 
-
-//////////////////////////////////////////////////////////////////////////////////////////
-/// @name Accessing Tabs
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
 #pragma mark -
 #pragma mark Accessing Tabs
-
+//----------------------------------------
+/** @name Accessing Tabs */
+//----------------------------------------
 
 /** 
   Returns the index corresponding to tab.
@@ -262,14 +261,11 @@
 - (id) lastTab;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////
-/// @name Selecting Tabs
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
 #pragma mark -
 #pragma mark Selecting a Tab
-
+//----------------------------------------
+/** @name Selecting Tabs */
+//----------------------------------------
 
 /** 
   Select the given tab in the tabview.
@@ -356,11 +352,11 @@
  */
 - (SFTab *) selectedTab;
 
-//////////////////////////////////////////////////////////////////////////////////////////
-/// @name Ordering Tabs
-//////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Ordering Tabs
+//----------------------------------------
+/** @name Ordering Tabs */
+//----------------------------------------
 /**
  Moves tab to new position.
  
@@ -372,14 +368,11 @@
 - (void)moveTab:(id)tab toIndex:(NSUInteger)index;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////
-/// @name Scrolling
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
 #pragma mark -
 #pragma mark Scrolling
-
+//----------------------------------------
+/** @name Scrolling */
+//----------------------------------------
 
 /** 
   Scroll the Tab View until tab is fully visibile.

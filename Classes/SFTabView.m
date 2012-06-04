@@ -349,10 +349,6 @@
     // adjusting the size of the tabsLayer
     CGFloat totalWidth = (tabWidth + tabOffset) * [arrangedTabs count];
     [tabsLayer setValue:[NSNumber numberWithInt:totalWidth] forKeyPath: @"frame.size.width"];
-    
-    //TODO: test without these 2 lines, the should NOT be needed
-    //for(id tab in arrangedTabs)
-    //  [tab parentSetWidth:tabWidth];
   }
   else
   {

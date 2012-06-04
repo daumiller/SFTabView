@@ -1,17 +1,10 @@
 # SFTabView
-A fully customizable Cocoa Tab view for use with Mac OS X 10.6 or above.
+A vaguely Chrome-like Cocoa tab view for use with Mac OS X 10.6 (Snow Leopard) or above.
 
-![](https://github.com/daumiller/SFTabView/raw/master/Documentation/screenshot.png)
+![](https://github.com/daumiller/SFTabView/raw/master/screenshot.png)
 
 `SFTabView` is released under the BSD license.
-
-SFTabView was originally developed by [Shiny Frog][1]; this fork is maintained by [Dillon Aumiller][2]
-
-New Changes:
-  * up-to-date documentation included in project
-  * tabs can be resized
-  * tabs can automatically resize to accommodate title text
+Originally developed by [Shiny Frog][1]; this fork is maintained by [Dillon Aumiller][2].
 
 [1]:https://github.com/shinyfrog
 [2]:https://github.com/daumiller
-

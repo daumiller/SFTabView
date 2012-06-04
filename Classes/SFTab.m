@@ -151,6 +151,22 @@ static NSDictionary *textLabelAttributes;
   return [[[SFTab alloc] initWithTitle:title content:content data:data] autorelease];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
+- init
+{
+  self = [super init];
+  if(self)
+  {
+    title    = @"New Tab";
+    content  = nil;
+    data     = nil;
+    selected = NO;
+    width    = 128.0;
+    parent   = nil;
+    [self initDynamicHeaderData];
+  }
+  return self;
+}
+//----------------------------------------------------------------------------------------------------------------------------------
 - initWithTitle:(NSString *)inTitle content:(id)inContent data:(id)inData
 {
   self = [super init];
