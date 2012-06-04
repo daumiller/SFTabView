@@ -15,16 +15,16 @@
 		51466A441577CAF2007F7018 /* inactiveBody.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A411577CAF2007F7018 /* inactiveBody.png */; };
 		51466A451577CAF2007F7018 /* inactiveLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A421577CAF2007F7018 /* inactiveLeft.png */; };
 		51466A461577CAF2007F7018 /* inactiveRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 51466A431577CAF2007F7018 /* inactiveRight.png */; };
-		515318C01577B1E400D37476 /* SFTab.h in Headers */ = {isa = PBXBuildFile; fileRef = 515318BC1577B1E400D37476 /* SFTab.h */; };
+		515318C01577B1E400D37476 /* SFTab.h in Headers */ = {isa = PBXBuildFile; fileRef = 515318BC1577B1E400D37476 /* SFTab.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		515318C11577B1E400D37476 /* SFTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 515318BD1577B1E400D37476 /* SFTab.m */; };
-		515318C21577B1E400D37476 /* SFTabView.h in Headers */ = {isa = PBXBuildFile; fileRef = 515318BE1577B1E400D37476 /* SFTabView.h */; };
+		515318C21577B1E400D37476 /* SFTabView.h in Headers */ = {isa = PBXBuildFile; fileRef = 515318BE1577B1E400D37476 /* SFTabView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		515318C31577B1E400D37476 /* SFTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 515318BF1577B1E400D37476 /* SFTabView.m */; };
 		515319471577B7D700D37476 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515319461577B7D700D37476 /* QuartzCore.framework */; };
 		515319831577B93800D37476 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515319821577B93800D37476 /* Cocoa.framework */; };
 		515319911577B9ED00D37476 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5153198F1577B9ED00D37476 /* MainMenu.xib */; };
 		515319961577BA1E00D37476 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 515319931577BA1E00D37476 /* main.m */; };
 		515319971577BA1E00D37476 /* SFTabViewTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 515319951577BA1E00D37476 /* SFTabViewTestAppDelegate.m */; };
-		51E057DE157BD9A40079EBC8 /* SFTabViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E057DD157BD9A40079EBC8 /* SFTabViewDelegate.h */; };
+		51E057DE157BD9A40079EBC8 /* SFTabViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 51E057DD157BD9A40079EBC8 /* SFTabViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -362,7 +362,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SFTabView_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = SFTabView;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -380,7 +380,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SFTabView_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = SFTabView;
 				WRAPPER_EXTENSION = framework;
 			};
