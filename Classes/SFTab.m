@@ -51,7 +51,8 @@ static NSDictionary *textLabelAttributes;
   	[title release];
   	title = [inTitle retain];
   }
-  
+  layerLabel.string = title;
+
   if(parent)
     if(parent.tabAutoSize)
       [parent resizeTabs];
@@ -243,7 +244,8 @@ static NSDictionary *textLabelAttributes;
   self.frame = CGRectMake(0, 0, width, 28);
   
   layerLabel = [[SFTabHeader layer] retain];
-  layerLabel.frame = CGRectMake(25.0, 0.0, width-50.0, 28.0);
+  layerLabel.frame = CGRectMake(25.0, -8.0, width-50.0, 28.0);
+  //there's something buggy w/ this -8 (layerLabel.frame.origin.top) adjustment, but i can't find any adverse effects...
   [layerLabel setFontSize:13.0f];
   [layerLabel setShadowOpacity:.9f];
   layerLabel.shadowOffset    = CGSizeMake(0, -1);
@@ -272,6 +274,7 @@ static NSDictionary *textLabelAttributes;
                                               offset: 20.0];
   [layerLabel addConstraint:constraint];
   [layerLabel setFont:@"LucidaGrande"];
+  layerLabel.string = title;
   
   //for some reason, during dragging these were getting off by 1 pixel
   //so, layerBody is now padded to X:-1 W:+2
@@ -302,8 +305,12 @@ static NSDictionary *textLabelAttributes;
   parent = inParent;
 
   if(parent)
+  {
     if(parent.tabAutoSize)
       [parent resizeTabs];
+    else
+      [self parentSetWidth:parent.tabWidth];
+  }
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 - (void)parentSetSelected:(BOOL)inSelected
@@ -366,11 +373,12 @@ static NSDictionary *textLabelAttributes;
   width = inWidth;
   layerBody.frame  = CGRectMake(25.0, 0.0, width-50.0, 28.0);
   layerRight.frame = CGRectMake(width-26.0, 0.0, 26.0, 28.0);
-  layerLabel.frame = layerBody.frame;
+  layerLabel.frame = CGRectMake(25.0, -8.0, width-50.0, 28.0);
+  //there's something buggy w/ this -8 (layerLabel.frame.origin.top) adjustment, but i can't find any adverse effects...
   if(selected)
     [layerBody setContents:(id)activeBody];
   else
     [layerBody setContents:(id)inactiveBody];
 }
-//----------------------------------------------------------------------------------------------------------------------------------
+
 @end

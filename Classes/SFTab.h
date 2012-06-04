@@ -131,6 +131,8 @@
 - (CGFloat)desiredWidth;
 //==================================================================================================================================
 
+- (void)test;
+
 //These should only be called by our SFTabView parent.
 - (void)parentSetParent:(SFTabView *)inParent;
 - (void)parentSetSelected:(BOOL)selected;

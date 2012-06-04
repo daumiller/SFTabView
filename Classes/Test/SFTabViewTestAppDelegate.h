@@ -8,8 +8,9 @@
 //==================================================================================================================================
 #import <Cocoa/Cocoa.h>
 #import "SFTabView.h"
+#import "SFTabViewDelegate.h"
 //==================================================================================================================================
-@interface SFTabViewTestAppDelegate : NSObject <NSApplicationDelegate>
+@interface SFTabViewTestAppDelegate : NSObject <NSApplicationDelegate, SFTabViewDelegate>
 {
   NSWindow  *window;
   SFTabView *tabView;

@@ -174,7 +174,7 @@
   // Checking if a tab was clicked.
   CALayer *clickedLayer = [tabsLayer hitTest:NSPointToCGPoint(mousePointInView)];
 
-  if(clickedLayer &&  clickedLayer != tabsLayer )
+  if(clickedLayer && (clickedLayer != tabsLayer))
   {
     canDragTab = NO;
     BOOL shouldSelectTab = YES;
@@ -470,9 +470,9 @@
   [newtab setActions:customActions];
   
   // Setting up new tab.
-  NSUInteger index = [arrangedTabs count];
+  int index = [arrangedTabs count];
   [newtab setFrame: NSMakeRect([self startingXOriginForTabAtIndex:index], 0, [newtab frame].size.width, [newtab frame].size.height)];
-  [newtab setZPosition: index * -1.0];
+  [newtab setZPosition: (CGFloat)(index * -1)];
   
   [pool drain];
   
@@ -607,7 +607,7 @@
 	if(currentSelectedTab)
   {
     [currentSelectedTab setZPosition:([self indexOfTab:currentSelectedTab] * -1.0)];
-    [(id)currentSelectedTab setSelected: NO];
+    [(id)currentSelectedTab parentSetSelected:NO];
   	currentSelectedTab = nil;
     [(SFTab *)currentSelectedTab parentSetSelected:NO];
   }
