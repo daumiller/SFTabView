@@ -4,7 +4,11 @@ A vaguely Chrome-like Cocoa tab view for use with Mac OS X 10.6 (Snow Leopard) o
 ![](https://github.com/daumiller/SFTabView/raw/master/screenshot.png)
 
 `SFTabView` is released under the BSD license.
+
 Originally developed by [Shiny Frog][1]; this fork is maintained by [Dillon Aumiller][2].
+
+HTML documentation is available for download as a [zip file][3].
 
 [1]:https://github.com/shinyfrog
 [2]:https://github.com/daumiller
+[3]:https://github.com/downloads/daumiller/SFTabView/Documentation.zip
