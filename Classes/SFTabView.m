@@ -83,7 +83,7 @@
   if(currentSelectedTab == nil)
     return;
   
-  CGRect currentSelFrame = [currentSelectedTab frame];
+  CGRect currentSelFrame = NSRectToCGRect([currentSelectedTab frame]);
   currentSelFrame.size.width += currentSelFrame.size.width / 2.0;
   
   // Scrolling to maintain the selected tab visible
@@ -185,7 +185,7 @@
     if(shouldSelectTab)
     {
       [self selectTab:(SFTab *)clickedLayer];    
-      mouseDownStartingPoint = NSPointFromCGPoint([currentSelectedTab frame].origin);
+      mouseDownStartingPoint = [currentSelectedTab frame].origin;
       currentClickedTab = clickedLayer;
     }
   }
@@ -214,7 +214,7 @@
       return;
 
     CGPoint tabNewOrigin = CGPointMake([currentClickedTab frame].origin.x + deltaPoint.x, [currentClickedTab frame].origin.y);
-    CGRect newFrame = [currentClickedTab frame];
+    CGRect newFrame = NSRectToCGRect([currentClickedTab frame]);
     
     // Checking if the dragged tab crossed another tab.
     CGPoint proximityLayerPoint;
@@ -247,7 +247,7 @@
     {
       [CATransaction begin]; 
       [CATransaction setValue: (id) kCFBooleanTrue forKey: kCATransactionDisableActions];
-      [currentClickedTab setFrame:newFrame];
+      [currentClickedTab setFrame:NSRectFromCGRect(newFrame)];
       [CATransaction commit];
       mouseDownPoint = mousePointInView;
     }
@@ -259,10 +259,10 @@
   if(currentClickedTab)
   {  
     // On mouse up we let the dragged tab slide to the starting or changed position.
-    CGRect newFrame = [currentClickedTab frame];
+    CGRect newFrame = NSRectToCGRect([currentClickedTab frame]);
     newFrame.origin.x = mouseDownStartingPoint.x;
     
-    [currentClickedTab setFrame:newFrame];
+    [currentClickedTab setFrame:NSRectFromCGRect(newFrame)];
     currentClickedTab = nil;
   }
   

@@ -128,7 +128,7 @@ static NSDictionary *textLabelAttributes;
 //==================================================================================================================================
 + (void)initialize
 {
-  [self initStaticHeaderData];
+  [self initStaticHeaderData]; //ignore warning in old xcode here...
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 + tab
@@ -162,7 +162,7 @@ static NSDictionary *textLabelAttributes;
     selected = NO;
     width    = 128.0;
     parent   = nil;
-    [self initDynamicHeaderData];
+    [self initDynamicHeaderData]; //ignore warning in old xcode here here...
   }
   return self;
 }
@@ -178,7 +178,7 @@ static NSDictionary *textLabelAttributes;
     selected = NO;
     width    = 128.0;
     parent   = nil;
-    [self initDynamicHeaderData];
+    [self initDynamicHeaderData]; //ignore warning in old xcode here here...
   }
   return self;
 }
@@ -344,7 +344,7 @@ static NSDictionary *textLabelAttributes;
     {
       if(parent.targetIsLayer)
       {
-        [(CALayer *)content setFrame:[parent.target bounds]];
+        [(CALayer *)content setFrame:NSRectToCGRect([parent.target bounds])];
         //TODO: autoresizing for CALayers??
         [parent.target addSublayer:content];
       }
