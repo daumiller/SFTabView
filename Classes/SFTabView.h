@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 //==================================================================================================================================
 @protocol SFTabViewDelegate;
+@class SFTab;
 
 /**
  An SFTabView provides a convenient way to manage tabs in your application. 
@@ -28,8 +29,8 @@
 {
   IBOutlet NSObject  <SFTabViewDelegate> *delegate;
 
-  CALayer *currentClickedTab;
-  CALayer *currentSelectedTab;
+  id currentClickedTab;
+  id currentSelectedTab;
 
   CALayer *tabsLayer;
   CAScrollLayer *scrollLayer;
@@ -47,6 +48,9 @@
   
   BOOL tabAutoSize;
   CGFloat tabWidth, tabMinWidth, tabMaxWidth;
+  
+  id target;
+  BOOL targetIsLayer;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -62,9 +66,7 @@
 
 
 /** 
-  The CALayer subclass that will render a single tab.
- 
- This class should be conform to the SFTab protocoll.  
+  The SFTab subclass that will represent a single tab.
  */
 @property (retain) NSString *defaultTabClassName;
 
@@ -108,24 +110,36 @@
 /**
   Size of fixed-width tabs.
  
- Only used when (tabAutoSize == NO).
- Note this currently has a hard-coded minimum value of 60.0.
+ + When `tabAutoSize` is YES, this is a read-only value.
+ + This currently has a hard-coded minimum value of 60.0.
  */
 @property (nonatomic, assign) CGFloat tabWidth;
 
 /**
   Minimum width of tabs.
  
- Note this currently has a hard-coded minimum value of 60.0.
+ Note: this currently has a hard-coded minimum value of 60.0.
  */
 @property (nonatomic, assign) CGFloat tabMinWidth;
 
 /**
   Maximum width of tabs.
  
- Note this currently has a card-coded minimum value of 60.0
+ Note: this currently has a card-coded minimum value of 60.0
  */
 @property (nonatomic, assign) CGFloat tabMaxWidth;
+
+/**
+  Target view/layer to receive Tab content.
+ 
+ If `target` is set, and the selected tab has set `content`, its content will be set as the target's current subview or sublayer.
+ */
+@property (nonatomic, assign) id target;
+
+/**
+ If YES, `target` is assumed to be a `CALayer`; if NO, an `NSView`.
+ */
+@property (nonatomic, assign) BOOL targetIsLayer;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @name Adding and Removing Tabs
@@ -135,28 +149,39 @@
 #pragma mark -
 #pragma mark Adding and Removing Tabs
 
-/** 
-  Add a new tab to the tabview, using the representedObject as model.
-  
- @param representedObject An object passed to the CALayer subclass that contain all the in
- fomation needed for rendering the tab.
- @see addTabAtIndex:withRepresentedObject:
- 
+/**
+ Add an existing SFTab to the view.
  */
-- (void) addTabWithRepresentedObject: (id) representedObject;
+- (void) addTab:(id)tab;
 
-
-/** 
-  Add a new tab to the tabview at the specified index, using the representedObject as model.
+/**
+ Add a new tab.
  
- @param index The index in the tabview at which to insert a new tab.
- @param representedObject An object passed to the CALayer subclass that contain all the in
- fomation needed for rendering the tab.
- @see addTabWithRepresentedObject:
- 
+ + `title` will be `@"New Tab"`
+ + `content` will be `nil`
+ + `data` will be `nil`
  */
-- (void) addTabAtIndex: (int) index withRepresentedObject: (id) representedObject;
+- (id) addNewTab;
 
+/**
+ Add a new tab.
+ 
+ + `content` will be `nil`
+ + `data` will be `nil`
+ */
+- (id) addNewTabWithTitle:(NSString *)title;
+
+/**
+ Add a new tab.
+ 
+ + `data` will be `nil`
+ */
+- (id) addNewTabWithTitle:(NSString *)title content:(id)content;
+
+/**
+ Add a new tab.
+ */
+- (id) addNewTabWithTitle:(NSString *)title content:(id)content data:(id)data;
 
 /** 
   Remove the tab from the tabview.
@@ -165,7 +190,7 @@
  @see removeTabAtIndex:
  
  */
-- (void) removeTab: (CALayer *) tab;
+- (void) removeTab: (id) tab;
 
 
 /** 
@@ -195,7 +220,7 @@
  @param tab A tab contained in the Tab View.
  @return The index whose corresponding tab object is equal to tab. If none of the objects in the tabview is equal to tab, returns NSNotFound.
  */
-- (int) indexOfTab: (CALayer *) tab;
+- (int) indexOfTab: (id) tab;
 
 
 /** 
@@ -213,7 +238,7 @@
  @return The tab located at index.
  @see numberOfTabs
  */
-- (CALayer *) tabAtIndex: (int) index;
+- (id) tabAtIndex: (int) index;
 
 
 /** 
@@ -227,14 +252,14 @@
   Returns the first tab in the Tab View.
  @return The first tab in the Tab View. If the Tab View contain no tabs, returns nil.
  */
-- (CALayer *) firstTab;
+- (id) firstTab;
 
 
 /** 
   Returns the last tab in the Tab View.
  @return The last tab in the Tab View. If the Tab View contain no tabs, returns nil.
  */
-- (CALayer *) lastTab;
+- (id) lastTab;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -254,7 +279,7 @@
  @see selectNextTab:
  @see selectPreviousTab:
  */
-- (void) selectTab: (CALayer *) tab;
+- (void) selectTab: (id) tab;
 
 
 /** 
@@ -329,7 +354,23 @@
   Returns the current selected tab.
  @return The current selected tab in the Tab View. If the Tab View contain no tabs, returns nil.
  */
-- (CALayer *) selectedTab;
+- (SFTab *) selectedTab;
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/// @name Ordering Tabs
+//////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Ordering Tabs
+/**
+ Moves tab to new position.
+ 
+ If new index is out of range, will be truncated to `0` or `count`.
+ 
+ @param tab Tab to move.
+ @param index New position of tab.
+ */
+- (void)moveTab:(id)tab toIndex:(NSUInteger)index;
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @name Scrolling
@@ -348,7 +389,7 @@
  
  @see scrollToTab:animated:
  */
-- (void) scrollToTab: (CALayer *) tab;
+- (void) scrollToTab: (id) tab;
 
 
 /** 
@@ -358,7 +399,7 @@
  
  @see scrollToTab:
  */
-- (void) scrollToTab: (CALayer *) tab animated: (BOOL) animated;
+- (void) scrollToTab: (id) tab animated: (BOOL) animated;
 - (void) scrollToPoint: (CGPoint) point animated: (BOOL) animated;
 
 @end
@@ -380,6 +421,7 @@
 - (int) startingXOriginForTabAtIndex: (int) index;
 - (CABasicAnimation *) tabMovingAnimation;
 - (NSPoint) deltaFromStartingPoint:(NSPoint)startingPoint endPoint:(NSPoint) endPoint;
+- (void)resizeTabs;
 
 @end
 

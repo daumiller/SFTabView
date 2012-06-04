@@ -8,6 +8,7 @@
 //
 //==================================================================================================================================
 #import "SFTabView.h"
+#import "SFTabViewDelegate.h"
 #import "SFTab.h"
 //==================================================================================================================================
 @implementation SFTabView
@@ -39,6 +40,9 @@
   tabWidth    = 128.0;
   tabMinWidth =  60.0;
   tabMaxWidth = 256.0;
+  
+  target = nil;
+  targetIsLayer = NO;
   
   CALayer *bgLayer = [CALayer layer];
   bgLayer.frame = NSRectToCGRect([self bounds]);
@@ -79,7 +83,7 @@
   if(currentSelectedTab == nil)
     return;
   
-  CGRect currentSelFrame = currentSelectedTab.frame;
+  CGRect currentSelFrame = [currentSelectedTab frame];
   currentSelFrame.size.width += currentSelFrame.size.width / 2.0;
   
   // Scrolling to maintain the selected tab visible
@@ -87,9 +91,9 @@
     [self scrollToTab:currentSelectedTab animated: NO];
   
   // eventually scrolling back if the tabview frame expanded
-  if(tabsLayer.visibleRect.size.width < ([self bounds].size.width - ([self lastTab].frame.size.width / 2.0)) && tabsLayer.visibleRect.origin.x > 0)
+  if(tabsLayer.visibleRect.size.width < ([self bounds].size.width - ([[self lastTab] frame].size.width / 2.0)) && tabsLayer.visibleRect.origin.x > 0)
   {
-    float deltaX =  ([self bounds].size.width - ([self lastTab].frame.size.width / 2.0)) - tabsLayer.visibleRect.size.width;
+    float deltaX =  ([self bounds].size.width - ([[self lastTab] frame].size.width / 2.0)) - tabsLayer.visibleRect.size.width;
     
     float newTabXPosition = tabsLayer.visibleRect.origin.x - deltaX;
     if(newTabXPosition < 0)
@@ -177,11 +181,11 @@
     
     // Asking delegate if the tab can be selected.
     if([delegate respondsToSelector:@selector(tabView:shouldSelectTab:)])
-      shouldSelectTab = [delegate tabView:self shouldSelectTab:clickedLayer];
+      shouldSelectTab = [delegate tabView:self shouldSelectTab:(SFTab *)clickedLayer];
     if(shouldSelectTab)
     {
-      [self selectTab:clickedLayer];    
-      mouseDownStartingPoint = NSPointFromCGPoint(currentSelectedTab.frame.origin);
+      [self selectTab:(SFTab *)clickedLayer];    
+      mouseDownStartingPoint = NSPointFromCGPoint([currentSelectedTab frame].origin);
       currentClickedTab = clickedLayer;
     }
   }
@@ -209,14 +213,14 @@
     if(!canDragTab)
       return;
 
-    CGPoint tabNewOrigin = CGPointMake(currentClickedTab.frame.origin.x + deltaPoint.x, currentClickedTab.frame.origin.y);
-    CGRect newFrame = currentClickedTab.frame;
+    CGPoint tabNewOrigin = CGPointMake([currentClickedTab frame].origin.x + deltaPoint.x, [currentClickedTab frame].origin.y);
+    CGRect newFrame = [currentClickedTab frame];
     
     // Checking if the dragged tab crossed another tab.
     CGPoint proximityLayerPoint;
     
     if(rightShift)
-      proximityLayerPoint = CGPointMake(tabNewOrigin.x + (currentClickedTab.frame.size.width), tabNewOrigin.y);
+      proximityLayerPoint = CGPointMake(tabNewOrigin.x + ([currentClickedTab frame].size.width), tabNewOrigin.y);
     else
       proximityLayerPoint = CGPointMake(tabNewOrigin.x, tabNewOrigin.y);
 
@@ -243,7 +247,7 @@
     {
       [CATransaction begin]; 
       [CATransaction setValue: (id) kCFBooleanTrue forKey: kCATransactionDisableActions];
-      currentClickedTab.frame= newFrame;
+      [currentClickedTab setFrame:newFrame];
       [CATransaction commit];
       mouseDownPoint = mousePointInView;
     }
@@ -255,10 +259,10 @@
   if(currentClickedTab)
   {  
     // On mouse up we let the dragged tab slide to the starting or changed position.
-    CGRect newFrame = currentClickedTab.frame;
+    CGRect newFrame = [currentClickedTab frame];
     newFrame.origin.x = mouseDownStartingPoint.x;
     
-    currentClickedTab.frame = newFrame;
+    [currentClickedTab setFrame:newFrame];
     currentClickedTab = nil;
   }
   
@@ -268,7 +272,7 @@
 #pragma mark -
 #pragma mark Tab Handling
 //----------------------------------------------------------------------------------------------------------------------------------
-- (void) rearrangeInitialTab: (CALayer *) initialTab toLandingTab:(CALayer *) landingTab withCurrentPoint: (CGPoint) currentPoint direction: (BOOL) direction
+- (void) rearrangeInitialTab: (id)initialTab toLandingTab:(id)landingTab withCurrentPoint: (CGPoint) currentPoint direction: (BOOL) direction
 {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   
@@ -287,17 +291,17 @@
     int initialOriginOffset = 0;
     
     // We are moving left to right, so the origin of the selected tab should be updated.
-    if(direction && currentPoint.x >= landingTab.position.x)
+    if(direction && currentPoint.x >= ((CALayer *)landingTab).position.x)
     {
       newIndex = indexOfInitialTab + 1;
-      landingOriginOffset = landingTab.frame.size.width - initialTab.frame.size.width;
+      landingOriginOffset = ((CALayer *)landingTab).frame.size.width - ((CALayer *)initialTab).frame.size.width;
       [self scrollToTab:currentSelectedTab];
     }
     // Moving right to left, the origin of the moved (not selected) tab should be updated. 
-    else if(!direction && currentPoint.x < landingTab.position.x)
+    else if(!direction && currentPoint.x < ((CALayer *)landingTab).position.x)
     {
       newIndex = indexOfInitialTab - 1;
-      initialOriginOffset = landingTab.frame.size.width - initialTab.frame.size.width;
+      initialOriginOffset = ((CALayer *)landingTab).frame.size.width - ((CALayer *)initialTab).frame.size.width;
       [self scrollToTab:currentSelectedTab];
     }
     else
@@ -307,16 +311,19 @@
     [arrangedTabs removeObjectAtIndex:indexOfInitialTab];
     [arrangedTabs insertObject:initialTab atIndex:newIndex];
     
-    landingTab.zPosition = indexOfInitialTab * -1;
+    ((CALayer *)landingTab).zPosition = indexOfInitialTab * -1;
     indexOfInitialTab = newIndex;
     
     // If the tab are of different size we need to adjust the new origin point.
-    CGPoint landingOrigin = landingTab.frame.origin;
+    CGPoint landingOrigin = ((CALayer *)landingTab).frame.origin;
     landingOrigin.x += landingOriginOffset;
     
-    CGRect newFrame = CGRectMake(mouseDownStartingPoint.x - initialOriginOffset, mouseDownStartingPoint.y, landingTab.frame.size.width , landingTab.frame.size.height);
+    CGRect newFrame = CGRectMake(mouseDownStartingPoint.x - initialOriginOffset,
+                                 mouseDownStartingPoint.y,
+                                 ((CALayer *)landingTab).frame.size.width ,
+                                 ((CALayer *)landingTab).frame.size.height);
     
-    landingTab.frame = newFrame;
+    ((CALayer *)landingTab).frame = newFrame;
     mouseDownStartingPoint = NSPointFromCGPoint(landingOrigin);    
   }
   [pool drain];
@@ -343,8 +350,9 @@
     CGFloat totalWidth = (tabWidth + tabOffset) * [arrangedTabs count];
     [tabsLayer setValue:[NSNumber numberWithInt:totalWidth] forKeyPath: @"frame.size.width"];
     
-    for(id tab in arrangedTabs)
-      [tab resize:tabWidth];
+    //TODO: test without these 2 lines, the should NOT be needed
+    //for(id tab in arrangedTabs)
+    //  [tab parentSetWidth:tabWidth];
   }
   else
   {
@@ -364,7 +372,7 @@
       newFrame.origin.x += runningAdj;
       tab.frame = newFrame;
       runningAdj += unitAdj;
-      [(SFTab *)tab resize:tabWidth];
+      [(SFTab *)tab parentSetWidth:tabWidth];
     }
   }
 }
@@ -373,8 +381,12 @@
 - (void)setTabWidth:(CGFloat)inTabWidth
 {
   if(inTabWidth < 60.0) inTabWidth = 60.0;
-  tabWidth = inTabWidth;
-  if(!tabAutoSize) [self resizeTabs];
+  //settting width has no effect when autoSizing
+  if(!tabAutoSize)
+  {
+    tabWidth = inTabWidth;
+    [self resizeTabs];
+  }
 }
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 @synthesize tabMinWidth;
@@ -401,79 +413,74 @@
   tabAutoSize = inTabAutoSize;
   [self resizeTabs];
 }
+
 //==================================================================================================================================
 #pragma mark -
 #pragma mark Adding and Removing Tabs
 //----------------------------------------------------------------------------------------------------------------------------------
-- (void) addTabWithRepresentedObject: (id) representedObject
+- (void) addTab:(id)tab
 {
-  [self addTabAtIndex:[self numberOfTabs] withRepresentedObject:representedObject];
-}
-//----------------------------------------------------------------------------------------------------------------------------------
-- (void) addTabAtIndex: (int) index withRepresentedObject: (id) representedObject
-{
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  [tab parentSetParent:self];
   
-  // Loading the class that will render the tab layer.
-  Class tabLayerClass = NSClassFromString(defaultTabClassName);
-  id newtab = [tabLayerClass layer];
+  [tabsLayer addSublayer:tab];
+  [arrangedTabs addObject:tab];
   
-  // Passing the represented object to the tab layer.
-  [newtab setRepresentedObject:representedObject andWidth:tabWidth];
-  
-  // Removing animation for z-index changes.
-  NSMutableDictionary *customActions = [NSMutableDictionary dictionaryWithDictionary:[newtab actions]];
-  [customActions setObject:[NSNull null] forKey:@"zPosition"];
-  [newtab setActions:customActions];
-
-  // Setting up new tab.
-  [newtab setFrame: NSMakeRect([self startingXOriginForTabAtIndex:index], 0, [newtab frame].size.width, [newtab frame].size.height)];
-  [newtab setZPosition:  (float)index * -1 ];
-
-  if([self numberOfTabs] > 0 && index <= [self numberOfTabs]-1)
-  {
-    // Getting the right tag sequence (left-to-right).
-    NSArray *tabsSequence = [self tabSequenceForStartingTabIndex:index-1 endingTabIndex:[self numberOfTabs]-1 direction:YES];
-    
-    // shifting pre-existing tabs according
-    for(NSNumber *n in tabsSequence)
-    {
-      CALayer *landingTab = [self tabAtIndex:[n intValue]];
-      
-      // Updating z-index
-      if(![landingTab isEqualTo:currentSelectedTab])
-        landingTab.zPosition = (float)([n intValue]+1) * -1;
-      
-      // Moving a tab.
-      CGRect newFrame = landingTab.frame;
-      newFrame.origin.x += [newtab frame].size.width + tabOffset;
-      landingTab.frame = newFrame;
-    }
-  }
-  
-  [tabsLayer addSublayer:newtab];
-  [arrangedTabs insertObject:newtab atIndex:index];
-
   // Selecting it if it's the only one.
   if([self numberOfTabs] == 1)
-    [self selectTab:newtab];
+    [self selectTab:tab];
   
   int offset = tabOffset;
   if([self numberOfTabs] == 1)
     offset = startingOffset;
   
-  // adjusting the size of the tabsLayer
-  [tabsLayer setValue:[NSNumber numberWithInt:[newtab frame].size.width + tabsLayer.frame.size.width + offset]  forKeyPath: @"frame.size.width"];
+  if(!tabAutoSize)
+    [tab parentSetWidth:tabWidth];
+  [self resizeTabs];
   
   // Notifing delegate
   if([delegate respondsToSelector:@selector(tabView:didAddTab:)])
-    [delegate tabView:self didAddTab:newtab];
-  
-  [pool drain];
-  if(tabAutoSize) [self resizeTabs];
+    [delegate tabView:self didAddTab:tab];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-- (void) removeTab: (CALayer *) tab
+- (id)addNewTab
+{
+  return [self addNewTabWithTitle:@"New Tab" content:nil data:nil];
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (id)addNewTabWithTitle:(NSString *)title
+{
+  return [self addNewTabWithTitle:title content:nil data:nil];
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (id)addNewTabWithTitle:(NSString *)title content:(id)content
+{
+  return [self addNewTabWithTitle:title content:content data:nil];
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (id) addNewTabWithTitle:(NSString *)title content:(id)content data:(id)data
+{
+  Class newTabClass = NSClassFromString(defaultTabClassName);
+  id newtab = [newTabClass tabWithTitle:title content:content data:data];
+ 
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  
+  // Removing animation for z-index changes.
+  NSMutableDictionary *customActions = [NSMutableDictionary dictionaryWithDictionary:[newtab actions]];
+  [customActions setObject:[NSNull null] forKey:@"zPosition"];
+  [newtab setActions:customActions];
+  
+  // Setting up new tab.
+  NSUInteger index = [arrangedTabs count];
+  [newtab setFrame: NSMakeRect([self startingXOriginForTabAtIndex:index], 0, [newtab frame].size.width, [newtab frame].size.height)];
+  [newtab setZPosition: index * -1.0];
+  
+  [pool drain];
+  
+  [self addTab:newtab];
+  return newtab;
+}
+//----------------------------------------------------------------------------------------------------------------------------------
+- (void) removeTab: (id) tab
 {
   int tabIndex = [self indexOfTab:tab];
   if(tabIndex != -1)
@@ -487,6 +494,7 @@
   // Grabbing the tab.
   int indexOfInitialTab = index;
   CALayer *tab = [arrangedTabs objectAtIndex:indexOfInitialTab];
+  [(SFTab *)tab parentSetParent:nil]; //hide this tab's content
   CGPoint startingOrigin = tab.frame.origin;
   int indexOfLandingTab = [arrangedTabs count] -1;
     
@@ -507,7 +515,7 @@
 
     // If the deleted tag was the selected one we'll switch selection on the successive.
     if([tab isEqualTo:currentSelectedTab])
-      [self selectTab:landingTab];
+      [self selectTab:(SFTab *)landingTab];
     // Adjusting the zPosition of moved tab (only if it's not selected).
     else if([landingTab isNotEqualTo:currentSelectedTab])
     {
@@ -536,7 +544,7 @@
   [tabsLayer setValue:[NSNumber numberWithInt: tabsLayer.frame.size.width - ([tab frame].size.width + offset)]  forKeyPath: @"frame.size.width"];
 
   if([delegate respondsToSelector:@selector(tabView:didRemovedTab:)])
-    [delegate tabView:self didRemovedTab: tab];
+    [delegate tabView:self didRemovedTab:(SFTab *)tab];
   
   // Removing tab from the arranged tags.
   [arrangedTabs removeObject:tab];
@@ -544,13 +552,13 @@
   
   [pool drain];
   
-  if(tabAutoSize) [self resizeTabs];
+  [self resizeTabs];
 }
 //==================================================================================================================================
 #pragma mark -
 #pragma mark Accessing Tabs
 //----------------------------------------------------------------------------------------------------------------------------------
-- (int) indexOfTab: (CALayer *) tab
+- (int) indexOfTab: (id)tab
 {
   if([arrangedTabs count] == 0) return -1;
   return [arrangedTabs indexOfObject:tab];
@@ -561,7 +569,7 @@
   return [arrangedTabs count];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-- (CALayer *) tabAtIndex: (int) index
+- (id) tabAtIndex: (int) index
 {
   return [arrangedTabs objectAtIndex:index];
 }
@@ -571,13 +579,13 @@
   return arrangedTabs;
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-- (CALayer *) firstTab
+- (id) firstTab
 {
   if([arrangedTabs count] == 0) return nil;
   return [arrangedTabs objectAtIndex:0];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-- (CALayer *) lastTab
+- (id) lastTab
 {
   if([arrangedTabs count] == 0) return nil;
   return [arrangedTabs lastObject];
@@ -586,7 +594,7 @@
 #pragma mark -
 #pragma mark Selecting a Tab
 //----------------------------------------------------------------------------------------------------------------------------------
-- (void) selectTab: (CALayer *) tab
+- (void) selectTab: (id) tab
 {
   if([arrangedTabs count] == 0) return;
   
@@ -598,15 +606,15 @@
   
 	if(currentSelectedTab)
   {
-    currentSelectedTab.zPosition = ([self indexOfTab:currentSelectedTab] * -1.0);
+    [currentSelectedTab setZPosition:([self indexOfTab:currentSelectedTab] * -1.0)];
     [(id)currentSelectedTab setSelected: NO];
   	currentSelectedTab = nil;
+    [(SFTab *)currentSelectedTab parentSetSelected:NO];
   }
 
   currentSelectedTab = tab;
-  currentSelectedTab.zPosition = 1000;
-
-  [(id)currentSelectedTab setSelected: YES];
+  [(SFTab *)currentSelectedTab parentSetSelected:YES];
+  [currentSelectedTab setZPosition:1000];
   
   if([delegate respondsToSelector:@selector(tabView:didSelectTab:)])
     [delegate tabView:self didSelectTab:tab];
@@ -651,21 +659,31 @@
   [self selectTabAtIndex: prevIndex];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-- (CALayer *) selectedTab
+- (id) selectedTab
 {
   if([arrangedTabs count] == 0) return nil;
   return currentSelectedTab;
 }
+
+//==================================================================================================================================
+#pragma mark -
+#pragma mark Tab Ordering
+//----------------------------------------------------------------------------------------------------------------------------------
+- (void)moveTab:(id)tab toIndex:(NSUInteger)index
+{
+  //TODO:
+}
+
 //==================================================================================================================================
 #pragma mark -
 #pragma mark Scrolling
 //----------------------------------------------------------------------------------------------------------------------------------
-- (void) scrollToTab: (CALayer *) tab
+- (void) scrollToTab: (id) tab
 {
   [self scrollToTab:tab animated:YES];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-- (void) scrollToTab: (CALayer *) tab animated: (BOOL) animated
+- (void) scrollToTab: (id) tab animated: (BOOL) animated
 {
   NSMutableDictionary *actions = [NSMutableDictionary dictionaryWithDictionary:[scrollLayer actions]];
   [actions removeObjectForKey:@"position"];
@@ -681,7 +699,7 @@
   [scrollLayer setActions:actions];
   
   
-  CGRect newFrame = tab.frame;
+  CGRect newFrame = ((CALayer *)tab).frame;
   if([tab isNotEqualTo:[self firstTab]] /*&& [tab isNotEqualTo:[self lastTab]]*/)
   {
     newFrame.origin.x -= newFrame.size.width / 2.0;
@@ -719,6 +737,41 @@
   [actions setObject:[NSNull null] forKey:@"bounds"];
   [scrollLayer setActions:actions];
 }
+
+//==================================================================================================================================
+#pragma mark -
+#pragma mark Target
+//==================================================================================================================================
+@synthesize targetIsLayer;
+@synthesize target;
+- (void)setTarget:(id)inTarget
+{
+  if(target)
+    if(currentSelectedTab)
+      if(((SFTab *)currentSelectedTab).content)
+        [(SFTab *)currentSelectedTab parentSetSelected:NO];
+  
+  @synchronized(target)
+  {
+    if(target) [target release];
+    target = [inTarget retain];
+  }
+  
+  //try to figure this one out on our own
+  if(target)
+  {
+    if([target isKindOfClass:[NSView class]])
+      targetIsLayer = NO;
+    else if([target isKindOfClass:[CALayer class]])
+      targetIsLayer = YES;
+  }
+  
+  if(target)
+    if(currentSelectedTab)
+      if(((SFTab *)currentSelectedTab).content)
+        [(SFTab *)currentSelectedTab parentSetSelected:YES];
+}
+
 //==================================================================================================================================
 #pragma mark -
 #pragma mark Utility methods

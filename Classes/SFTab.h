@@ -28,7 +28,7 @@
   id content;
   id data;
   
-  BOOL selected;
+  BOOL    selected;
   CGFloat width;
   
   SFTabView *parent;
@@ -62,7 +62,8 @@
 /**
  Get or set current tab as selected.
  
- **Note:** Setting the `selected` value will bypass `SFTabView` parent's delegate's `shouldSelectTab:` method.
+ + Setting this value will bypass `SFTabView` parent's delegate's `shouldSelectTab:` method.
+ + The only valid value to assign to this property is `YES`.
  */
 @property (nonatomic, assign) BOOL selected;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -71,8 +72,14 @@
  
  + There is currently a hard-coded minimum value of 60.
  + If this value is directly set, all sibling tabs will also resize to the given width.
+ + Assigning has no effect when parent's `tabAutoSize` is set to `YES`.
  */
 @property (nonatomic, assign) CGFloat width;
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/**
+ Tab's index within parent SFTabView.
+ */
+@property (nonatomic, assign) NSUInteger index;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /**
  Get or set `SFTabView` parent of this tab.

@@ -52,9 +52,9 @@ static NSDictionary *textLabelAttributes;
   	title = [inTitle retain];
   }
   
-  //do a soft resize request; don't override any user settings
   if(parent)
-    [parent tabRequestedResize:[self desiredWidth]];
+    if(parent.tabAutoSize)
+      [parent resizeTabs];
 }
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 - (void)setContent:(id)inContent
@@ -87,8 +87,8 @@ static NSDictionary *textLabelAttributes;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 - (void)setSelected:(BOOL)inSelected
 {
-  if(parent)
-    parent.selectedTab = self;
+  if(parent && inSelected)
+    [parent selectTab:self];
   else
     selected = inSelected;
 }
@@ -101,6 +101,17 @@ static NSDictionary *textLabelAttributes;
     parent.tabWidth = inWidth;
   else
     width = inWidth;
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- (NSUInteger)index
+{
+  if(!parent) return 0;
+  return [parent indexOfTab:self];
+}
+- (void)setIndex:(NSUInteger)inIndex
+{
+  if(!parent) return;
+  [parent moveTab:self toIndex:inIndex];
 }
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 - (void)setParent:(SFTabView *)inParent
@@ -291,15 +302,16 @@ static NSDictionary *textLabelAttributes;
   parent = inParent;
 
   if(parent)
-    [parent tabRequestedResize:[self desiredWidth]];
+    if(parent.tabAutoSize)
+      [parent resizeTabs];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
-- (void)parentSetSelected:(BOOL)selected
+- (void)parentSetSelected:(BOOL)inSelected
 {
   [CATransaction begin]; 
   [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
   
-  if(selected)
+  if(inSelected)
   {
     selected = YES;
     [layerLeft  setContents:(id)activeLeft];
@@ -318,7 +330,7 @@ static NSDictionary *textLabelAttributes;
         //casting to avoid multiple definitions warning on setAutoResizingMask:
         [(NSView *)content setFrame:[parent.target bounds]];
         [(NSView *)content setAutoresizingMask: NSViewWidthSizable|NSViewHeightSizable]; //TODO: this should be customizable
-        [parent.target addSubView:content];
+        [parent.target addSubview:content];
       }
     }
   }

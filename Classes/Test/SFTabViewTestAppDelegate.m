@@ -17,9 +17,9 @@
   tabView.tabOffset = -15;
   tabView.tabMinWidth = 128.0;
   tabView.tabAutoSize = YES;
-  [tabView addTabWithRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Tab One",@"name",nil]];
-  [tabView addTabWithRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Tab Two",@"name",nil]];
-  [tabView addTabWithRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Some Long Tab Name Here",@"name",nil]];
+  [tabView addNewTabWithTitle:@"Tab One"];
+  [tabView addNewTabWithTitle:@"Tab Two"];
+  [tabView addNewTabWithTitle:@"A Longer, 3rd Tab Here"];
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
@@ -29,7 +29,7 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 - (IBAction)tabView_Add:(id)sender
 {
-  [tabView addTabWithRepresentedObject:[NSDictionary dictionaryWithObjectsAndKeys:@"New Tab", @"name", nil]];
+  [tabView addNewTab];
 }
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 - (IBAction)tabView_Close:(id)sender
